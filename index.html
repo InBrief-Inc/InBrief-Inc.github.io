@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InBrief — incident communication, without lock-in</title>
+<link rel="canonical" href="https://inbrief.sh/">
+<meta name="description" content="Hosted status pages that keep your customers informed: monitors that notice, incidents you publish, subscribers you notify, and an API to drive all three. English, Arabic, French and Spanish. Pay per capability, no tiers.">
+<link rel="icon" href="assets/logo.png">
+<meta property="og:title" content="InBrief — incident communication, without lock-in">
+<meta property="og:description" content="Hosted status pages. Monitors that notice, incidents you publish, subscribers you notify, and an API to drive all three.">
+<meta property="og:image" content="https://inbrief-inc.github.io/assets/banner.png">
+<meta property="og:url" content="https://inbrief.sh/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --bg:#06111c; --panel:#0c1a27; --line:rgba(255,255,255,.10);
+    --ink:#f2f7fb; --mut:rgba(242,247,251,.66); --dim:rgba(242,247,251,.44);
+    --blue:#1b87c5; --green:#22b573; --deep:#1b7a4f; --amber:#e0a458; --red:#e06a63;
+    --r:16px; --max:1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--ink);
+    font:400 17px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--green)}
+  h2{font-size:clamp(28px,4vw,40px);line-height:1.14;letter-spacing:-1.2px;font-weight:700;margin:10px 0 14px}
+  h3{font-size:19px;letter-spacing:-.3px;font-weight:650;margin-bottom:7px}
+  p{color:var(--mut)}
+  section{padding:88px 0;border-top:1px solid var(--line)}
+  .lede{font-size:19px;max-width:62ch}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(6,17,28,.82);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:28px;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:19px;letter-spacing:-.5px;text-decoration:none}
+  .brand img{width:30px;height:30px}
+  .nav nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
+  .nav nav a{color:var(--mut);text-decoration:none}
+  .nav nav a:hover{color:var(--ink)}
+  .btn{display:inline-block;padding:11px 20px;border-radius:999px;font-weight:650;font-size:15px;text-decoration:none;white-space:nowrap}
+  .btn-p{background:var(--green);color:#04231a}
+  .btn-p:hover{background:#2bc681}
+  .btn-s{border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.04)}
+  .btn-s:hover{border-color:rgba(255,255,255,.25)}
+  @media(max-width:820px){.nav nav{display:none}}
+
+  /* hero */
+  .hero{position:relative;padding:96px 0 72px;border-top:0;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:-200px -200px auto;height:760px;z-index:-1;
+    background:
+      radial-gradient(760px 420px at 78% 12%,rgba(34,181,115,.26),transparent 62%),
+      radial-gradient(700px 420px at 14% 34%,rgba(27,135,197,.28),transparent 62%);}
+  h1{font-size:clamp(40px,6.6vw,68px);line-height:1.04;letter-spacing:-2.6px;font-weight:750;max-width:16ch}
+  .sub{font-size:clamp(18px,2.2vw,21px);color:var(--mut);max-width:58ch;margin-top:20px}
+  .cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
+  .cta .btn{padding:14px 26px;font-size:16px}
+  .trust{display:flex;align-items:center;gap:10px;margin-top:30px;font-size:14.5px;color:var(--dim);flex-wrap:wrap}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(34,181,115,.2)}
+  .trust a{color:var(--mut)}
+  .shot{margin-top:56px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.85)}
+  .shot img{display:block;width:100%}
+  .cap{margin-top:12px;font-size:13.5px;color:var(--dim);text-align:center}
+
+  /* generic grid */
+  .grid{display:grid;gap:18px;margin-top:40px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+  .card p{font-size:15.5px}
+  .ico{font-size:24px;display:block;margin-bottom:12px}
+
+  /* why */
+  .why{display:grid;gap:22px;grid-template-columns:repeat(2,1fr);margin-top:44px}
+  @media(max-width:860px){.why{grid-template-columns:1fr}}
+  .why .card{padding:30px}
+  .why h3{font-size:21px;margin-bottom:10px}
+  .plans{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+  .plan{border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:14.5px;font-weight:620;background:rgba(255,255,255,.03)}
+  .plan b{color:var(--green)}
+
+  /* arabic split */
+  .split{display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:center;margin-top:40px}
+  @media(max-width:960px){.split{grid-template-columns:1fr}}
+  .split img{width:100%;display:block;border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.8)}
+  .langs{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+  .langs span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--mut)}
+
+  /* deployment */
+  .dep{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:860px){.dep{grid-template-columns:1fr}}
+  .dep .card{position:relative;padding-top:30px}
+  .num{font-size:12.5px;letter-spacing:2px;color:var(--dim);font-weight:700}
+  .tag{position:absolute;top:22px;right:22px;font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;
+    font-weight:700;padding:5px 11px;border-radius:999px}
+  .now{background:rgba(34,181,115,.15);color:#7ee2b4;border:1px solid rgba(34,181,115,.35)}
+  .soon{background:rgba(255,255,255,.05);color:var(--dim);border:1px solid var(--line)}
+
+  /* platform list */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;
+    border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+  @media(max-width:960px){.feat{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.feat{grid-template-columns:1fr}}
+  .feat div{padding:24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .feat h3{font-size:16.5px}
+  .feat p{font-size:14.5px;line-height:1.55}
+
+  /* dev */
+  .api{margin-top:36px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+  .api a.row{display:flex;gap:18px;padding:17px 24px;border-bottom:1px solid var(--line);text-decoration:none;align-items:baseline;flex-wrap:wrap}
+  .api a.row:last-child{border-bottom:0}
+  .api a.row:hover{background:rgba(255,255,255,.03)}
+  .api b{min-width:200px;font-weight:650;font-size:15.5px}
+  .api span{color:var(--mut);font-size:14.5px}
+  pre{margin-top:22px;background:#020a12;border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;color:#cfe6f5;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .tok{color:var(--green)}
+
+  /* badges */
+  .badges{display:grid;grid-template-columns:180px 1fr;gap:0;margin-top:36px;
+    border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+  @media(max-width:620px){.badges{grid-template-columns:1fr}}
+  .badges > div{padding:15px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+  .badges > div:nth-child(odd){border-right:1px solid var(--line)}
+  .badges img{height:20px;display:block}
+  .badges code{font-size:13px;color:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .badges em{color:var(--dim);font-style:normal;font-size:14px;margin-left:auto;text-align:right}
+  @media(max-width:620px){.badges em{display:none}}
+  .shields{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:22px}
+
+  /* pricing */
+  .price{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:860px){.price{grid-template-columns:1fr}}
+  .price .card{text-align:center;padding:32px 26px}
+  .price .amt{font-size:42px;font-weight:750;letter-spacing:-2px;margin:6px 0}
+  .price .amt small{font-size:15px;font-weight:500;color:var(--dim);letter-spacing:0}
+  .price .nm{font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dim)}
+  .hl{border-color:rgba(34,181,115,.45)!important;box-shadow:0 0 0 1px rgba(34,181,115,.18)}
+
+  /* close */
+  .close{text-align:center;padding:104px 0}
+  .close h2{max-width:20ch;margin:10px auto 16px}
+  .close p{margin:0 auto;max-width:54ch}
+  footer{border-top:1px solid var(--line);padding:40px 0;font-size:14.5px;color:var(--dim)}
+  .frow{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+  footer a{color:var(--mut);text-decoration:none}
+  footer a:hover{color:var(--ink)}
+  .fnote{margin-left:auto}
+  @media(max-width:700px){.fnote{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://inbrief.sh"><img src="assets/logo.png" alt="">InBrief</a>
+    <nav>
+      <a href="#why">Why InBrief</a>
+      <a href="#platform">Platform</a>
+      <a href="#developers">Developers</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://inbrief.sh/docs">Docs</a>
+    </nav>
+    <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Hosted status pages</span>
+    <h1>Incident communication, without lock-in.</h1>
+    <p class="sub">Monitors that notice. Incidents you publish. Subscribers you notify.
+      An API to drive all three from your own systems — while you keep the account,
+      the domain and the history.</p>
+    <div class="cta">
+      <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
+      <a class="btn btn-s" href="https://demo.inbrief.sh">See a live status page</a>
+    </div>
+    <div class="trust">
+      <i class="dot"></i> Running in production at
+      <a href="https://status.sakneen.com">status.sakneen.com</a>
+      — real incidents, not a mock-up
+    </div>
+
+    <div class="shot">
+      <a href="https://demo.inbrief.sh"><img src="assets/status-page.png"
+        alt="An InBrief status page showing an ongoing incident above fourteen days of service health"></a>
+    </div>
+    <p class="cap">Our demonstration page, held in an incident on purpose so you can see how one reads.</p>
+  </div>
+</div>
+
+<section id="why">
+  <div class="wrap">
+    <span class="eyebrow">Why teams move</span>
+    <h2>Four things most status pages get wrong</h2>
+    <p class="lede">Each of these is a capability you can switch on by itself — not a reason to buy a bigger plan.</p>
+
+    <div class="why">
+      <div class="card">
+        <span class="ico">💸</span>
+        <h3>Pay for what you switch on</h3>
+        <p>Tiered pricing makes you buy a bundle to reach one thing inside it — the custom
+          domain sits in the tier above yours, so you pay for four capabilities you will
+          never open to get the one you came for. Here every capability carries its own
+          price, the builder shows the running total as you add and remove, and that total
+          is what checkout charges.</p>
+        <div class="plans">
+          <span class="plan">Free <b>$0</b></span>
+          <span class="plan">Start <b>$10</b></span>
+          <span class="plan">Pro <b>$20</b></span>
+          <a class="plan" href="https://inbrief.sh/build" style="text-decoration:none">or build your own →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="ico">🌍</span>
+        <h3>Write the incident once, publish it everywhere</h3>
+        <p>Choose the languages your page publishes in and InBrief prepares the translations
+          automatically — you review them before anything goes out. Visitors pick their own
+          with a toggle, and the choice sticks for the rest of the incident. One page, not
+          an incident written twice.</p>
+      </div>
+
+      <div class="card">
+        <span class="ico">🛟</span>
+        <h3>A page that survives the outage it reports</h3>
+        <p>A status page served from the infrastructure it reports on is the one page
+          guaranteed to be down exactly when it matters. Outage continuity puts the
+          customer-facing page somewhere else entirely, so visitors still get a page —
+          carrying your message instead of a connection error.</p>
+      </div>
+
+      <div class="card">
+        <span class="ico">🔌</span>
+        <h3>Machine-drivable from the first day</h3>
+        <p>Open, update and resolve incidents over REST. Verify signed webhooks. Read the
+          public ledger as JSON, RSS or Atom. The full contract ships as OpenAPI, and the
+          site publishes an <code>llms.txt</code> so coding agents can read it directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="languages">
+  <div class="wrap">
+    <span class="eyebrow">Four languages, properly</span>
+    <h2>Arabic is a first-class language here</h2>
+    <div class="split">
+      <div>
+        <p>Most status pages are English-only, so a team serving a region that does not read
+          English writes every incident twice — or writes it once and accepts that half the
+          audience will not follow it.</p>
+        <p style="margin-top:16px">Arabic is not a translation target bolted on. The page renders
+          <strong style="color:var(--ink)">right-to-left, with Arabic-Indic digits</strong>, because a
+          right-to-left page laid out left-to-right reads as broken to the people it is for.</p>
+        <div class="langs">
+          <span>English</span><span>العربية · RTL</span><span>Français</span><span>Español</span>
+        </div>
+      </div>
+      <div>
+        <a href="https://demo.inbrief.sh/?lang=ar"><img src="assets/status-page-arabic.png"
+          alt="The same status page in Arabic, mirrored right to left with Arabic-Indic numerals"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deployment">
+  <div class="wrap">
+    <span class="eyebrow">Deployment</span>
+    <h2>Run it where your compliance team needs it</h2>
+    <p class="lede">Manage incidents in InBrief Cloud and choose where operational event
+      history is stored. Private deployment options are published now and open when their
+      support boundaries are ready.</p>
+    <div class="dep">
+      <div class="card">
+        <span class="tag now">Available</span>
+        <span class="num">01</span><h3>Cloud</h3>
+        <p>Nothing to install. We run the product, the delivery and the upgrades. Self-serve
+          from the builder.</p>
+      </div>
+      <div class="card">
+        <span class="tag soon">Coming soon</span>
+        <span class="num">02</span><h3>On-premises</h3>
+        <p>The whole product inside your own perimeter, for teams whose data cannot leave it.</p>
+      </div>
+      <div class="card">
+        <span class="tag soon">Coming soon</span>
+        <span class="num">03</span><h3>Hybrid</h3>
+        <p>Incidents managed in InBrief Cloud, operational event history kept where you choose.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="platform">
+  <div class="wrap">
+    <span class="eyebrow">The platform</span>
+    <h2>Everything a status page actually needs</h2>
+    <div class="feat">
+      <div><h3>📊 Status pages</h3><p>Your brand, logo, accent and history window. Run more than one page from one account.</p></div>
+      <div><h3>🌐 Custom domains</h3><p>Point a DNS record at InBrief; the certificate is issued and renewed for you.</p></div>
+      <div><h3>📡 Monitoring</h3><p>Website, port, DNS and cron-job checks, grouped into the services customers recognise.</p></div>
+      <div><h3>🗄 Database health</h3><p>Private connection and pool diagnostics — visible to you, never on the public page.</p></div>
+      <div><h3>🚨 Incidents</h3><p>Publish, update, resolve. Schedule maintenance ahead of time; write the postmortem after.</p></div>
+      <div><h3>📬 Subscribers</h3><p>Email, Discord, Microsoft Teams, Telegram and browser push — one update reaches all of them.</p></div>
+      <div><h3>💬 Team alerts</h3><p>Monitor and certificate alerts into the Slack channel your responders actually watch.</p></div>
+      <div><h3>📈 Analytics</h3><p>Page loads, visitor-days and subscription conversion, for each public page.</p></div>
+      <div><h3>👥 Roles &amp; audit</h3><p>Owner, admin, member and viewer permissions, with an exportable log of who changed what.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="developers">
+  <div class="wrap">
+    <span class="eyebrow">Developers</span>
+    <h2>Built to be driven by code</h2>
+    <div class="api">
+      <a class="row" href="https://inbrief.sh/docs/developers/public-status-api"><b>Public Status API</b><span>Current service health and the incident ledger as cached JSON</span></a>
+      <a class="row" href="https://inbrief.sh/docs/developers/incident-api"><b>Incident API</b><span>Open, update and resolve incidents from your own systems</span></a>
+      <a class="row" href="https://inbrief.sh/docs/developers/event-api"><b>Event API</b><span>Batch application outcomes into the private operational view</span></a>
+      <a class="row" href="https://inbrief.sh/docs/developers/database-health"><b>Database Health</b><span>REST server observations and optional pool reporters</span></a>
+      <a class="row" href="https://inbrief.sh/docs/developers/webhooks"><b>Webhooks</b><span>Signed deliveries, documented event types and retry behaviour</span></a>
+      <a class="row" href="https://inbrief.sh/docs/developers/badges-and-feeds"><b>Badges &amp; feeds</b><span>SVG badges, JSON status, RSS and Atom — public, no key required</span></a>
+      <a class="row" href="https://inbrief.sh/docs/developers/mcp"><b>MCP</b><span>Model Context Protocol connection, in preview</span></a>
+    </div>
+<pre><span class="tok">curl</span> -X POST https://api.inbrief.sh/v1/incidents \
+  -H <span class="tok">"Authorization: Bearer $INBRIEF_KEY"</span> \
+  -d <span class="tok">'{"title":"Checkout unavailable","impact":"high","services":["checkout"]}'</span></pre>
+    <p style="margin-top:18px;font-size:15px">The full REST contract is published as
+      <a href="https://inbrief.sh/docs/developers/openapi.json" style="color:var(--green)">OpenAPI</a>,
+      and the site ships an
+      <a href="https://inbrief.sh/llms.txt" style="color:var(--green)">llms.txt</a>
+      so coding agents can read it directly.
+      <a href="https://inbrief.sh/docs/developers/quickstart" style="color:var(--green)">Start here →</a></p>
+  </div>
+</section>
+
+<section id="badges">
+  <div class="wrap">
+    <span class="eyebrow">Badges, widgets &amp; feeds</span>
+    <h2>Public embeds that never break</h2>
+    <p class="lede">Unauthenticated, cached for five minutes, and a badge URL never 404s —
+      an unknown slug or host renders the grey <code>unknown</code> badge, because a broken
+      image in somebody else's README reads as <em>your</em> service being broken.</p>
+
+    <div class="badges">
+      <div><img src="https://demo.inbrief.sh/badge.svg" alt="Whole-page status badge"></div>
+      <div><code>/badge.svg</code><em>the whole page</em></div>
+      <div><img src="https://demo.inbrief.sh/badge/api.svg" alt="Per-service status badge"></div>
+      <div><code>/badge/{service}.svg</code><em>one monitor, by name</em></div>
+      <div><img src="https://demo.inbrief.sh/badge/legacy-import.svg" alt="Badge for a service that is down"></div>
+      <div><code>/badge/legacy-import.svg</code><em>the service in the incident</em></div>
+      <div><img src="https://demo.inbrief.sh/badge.svg?style=uptime" alt="Uptime style badge"></div>
+      <div><code>?style=uptime</code><em>thirty-day uptime</em></div>
+      <div><img src="https://demo.inbrief.sh/badge/no-such-service.svg" alt="Unknown service badge"></div>
+      <div><code>any unrecognised slug</code><em>never a broken image</em></div>
+    </div>
+
+    <p style="margin-top:30px;font-size:15.5px"><strong style="color:var(--ink)">Renders inside shields.io too.</strong>
+      <code>/badge.json</code> returns the shields endpoint schema, so shields draws your live
+      status in any of its own styles:</p>
+    <div class="shields">
+      <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fdemo.inbrief.sh%2Fbadge.json&style=flat-square" alt="">
+      <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fdemo.inbrief.sh%2Fbadge.json&style=for-the-badge" alt="">
+      <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fdemo.inbrief.sh%2Fbadge.json&style=plastic" alt="">
+    </div>
+
+    <div class="grid g2" style="margin-top:36px">
+      <div class="card">
+        <h3>Feeds and calendars</h3>
+        <p><code>/feed.xml</code> is the incident ledger as RSS 2.0, filterable by service and
+          language — <code>?service=api&amp;lang=ar</code> — alongside Atom and a maintenance
+          calendar, all generated with copy buttons in <strong style="color:var(--ink)">Branding → Embed</strong>.</p>
+      </div>
+      <div class="card">
+        <h3>In-page widgets <span class="tag soon" style="position:static;margin-left:6px">In development</span></h3>
+        <p>A live status widget that drops into your own site, styled from the console, with no
+          code changes at the embedding end. Built and being finished — not yet released for
+          general Cloud use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2>No tiers. Named plans are just a shortcut.</h2>
+    <p class="lede">Every plan below is a preselected set of the same individually priced
+      capabilities, at a discount. Picking one is a shortcut, never a different product.</p>
+    <div class="price">
+      <div class="card"><span class="nm">Free</span><div class="amt">$0</div><p>A public status page to start from.</p></div>
+      <div class="card hl"><span class="nm">Start</span><div class="amt">$10<small>/mo</small></div><p>The everyday set for a small team.</p></div>
+      <div class="card"><span class="nm">Pro</span><div class="amt">$20<small>/mo</small></div><p>The fuller set, still assembled from the same units.</p></div>
+    </div>
+    <div class="cta" style="justify-content:center">
+      <a class="btn btn-p" href="https://inbrief.sh/build">Assemble your own plan →</a>
+    </div>
+  </div>
+</section>
+
+<div class="close">
+  <div class="wrap">
+    <span class="eyebrow">Get started</span>
+    <h2>Your next incident is going to happen anyway.</h2>
+    <p>Put up the page before it does. Free to start, no card, and the account, the domain
+      and the history stay yours.</p>
+    <div class="cta" style="justify-content:center;margin-top:30px">
+      <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
+      <a class="btn btn-s" href="https://inbrief.sh/docs">Read the docs</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap frow">
+    <a class="brand" href="https://inbrief.sh" style="font-size:16px"><img src="assets/logo.png" alt="" style="width:22px;height:22px">InBrief</a>
+    <a href="https://inbrief.sh">inbrief.sh</a>
+    <a href="https://inbrief.sh/docs">Docs</a>
+    <a href="https://github.com/InBrief-Inc">GitHub</a>
+    <a href="https://www.linkedin.com/company/inbriefsh">LinkedIn</a>
+    <a href="mailto:support@inbrief.sh">support@inbrief.sh</a>
+    <span class="fnote">Built with TypeScript, Next.js, NestJS and MongoDB.</span>
+  </div>
+</footer>
+
+</body>
+</html>
