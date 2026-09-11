@@ -157,9 +157,167 @@
   footer a:hover{color:var(--ink)}
   .fnote{margin-left:auto}
   @media(max-width:700px){.fnote{margin-left:0;width:100%}}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:64px 0 34px;margin-top:0}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px}
+  @media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+  .fbrand p{font-size:14.5px;line-height:1.6;margin-top:14px;max-width:34ch;color:var(--dim)}
+  .fbrand .btn{padding:10px 18px;font-size:14.5px}
+  .fcol h4{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--dim);
+    font-weight:700;margin-bottom:15px}
+  .fcol a{display:block;font-size:14.5px;color:var(--mut);text-decoration:none;padding:5px 0;
+    transition:color .18s ease,transform .18s ease}
+  .fcol a:hover{color:var(--ink);transform:translateX(3px)}
+  .fbase{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:48px;
+    padding-top:24px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim)}
+  .flegal{margin-left:auto;display:flex;gap:20px}
+  @media(max-width:560px){.flegal{margin-left:0}}
+  .flegal a{color:var(--dim);text-decoration:none}
+  .flegal a:hover{color:var(--ink)}
+
+  /* ---------- motion ---------- */
+  .reveal{opacity:0;transform:translateY(22px);
+    transition:opacity .75s cubic-bezier(.22,.7,.26,1),transform .75s cubic-bezier(.22,.7,.26,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @keyframes drift{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(-3%,2%,0) scale(1.06)}
+    100%{transform:translate3d(0,0,0) scale(1)}
+  }
+  .hero::before{animation:drift 22s ease-in-out infinite}
+
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(34,181,115,.45)}
+    70%{box-shadow:0 0 0 9px rgba(34,181,115,0)}
+    100%{box-shadow:0 0 0 0 rgba(34,181,115,0)}
+  }
+  .dot{animation:pulse 2.4s ease-out infinite}
+
+  header{transition:box-shadow .25s ease,background .25s ease}
+  header.stuck{box-shadow:0 10px 34px -18px rgba(0,0,0,.9);background:rgba(6,17,28,.94)}
+
+  .nav nav a{position:relative;transition:color .18s ease}
+  .nav nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;
+    background:var(--green);border-radius:2px;transition:right .26s cubic-bezier(.22,.7,.26,1)}
+  .nav nav a:hover::after{right:0}
+
+  .btn{transition:transform .18s cubic-bezier(.22,.7,.26,1),box-shadow .22s ease,background .18s ease,border-color .18s ease}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(34,181,115,.75)}
+  .btn-s:hover{transform:translateY(-2px)}
+
+  .card{transition:transform .3s cubic-bezier(.22,.7,.26,1),border-color .3s ease,box-shadow .3s ease}
+  .card:hover{transform:translateY(-4px);border-color:rgba(34,181,115,.34);
+    box-shadow:0 22px 48px -26px rgba(0,0,0,.9)}
+  .feat div{transition:background .25s ease}
+  .feat div:hover{background:rgba(34,181,115,.055)}
+
+  .shot{transition:transform .35s cubic-bezier(.22,.7,.26,1),box-shadow .35s ease;transform-style:preserve-3d;will-change:transform}
+
+  .badges img,.shields img{transition:transform .2s ease}
+  .badges > div:hover img,.shields img:hover{transform:scale(1.08)}
+
+  /* copy button on the snippet */
+  .snip{position:relative}
+  .copy{position:absolute;top:12px;right:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);
+    color:var(--mut);border-radius:8px;padding:6px 12px;font:600 12.5px/1 inherit;cursor:pointer;
+    transition:all .18s ease}
+  .copy:hover{color:var(--ink);border-color:rgba(255,255,255,.3)}
+  .copy.done{color:#7ee2b4;border-color:rgba(34,181,115,.5)}
+
+  /* back to top */
+  .top{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;
+    display:grid;place-items:center;background:var(--panel);border:1px solid var(--line);
+    color:var(--mut);text-decoration:none;opacity:0;pointer-events:none;transform:translateY(10px);
+    transition:all .3s ease;z-index:60;font-size:17px}
+  .top.show{opacity:1;pointer-events:auto;transform:none}
+  .top:hover{color:var(--ink);border-color:rgba(34,181,115,.5);transform:translateY(-3px)}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+
+  /* ---------- premium motion layer ---------- */
+
+  /* 1. scroll progress */
+  .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:100;
+    background:linear-gradient(90deg,var(--blue),var(--green));
+    box-shadow:0 0 14px rgba(34,181,115,.6);transition:width .08s linear}
+
+  /* 2. film grain */
+  .grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* 3. word-by-word headline */
+  h1 .w{display:inline-block;opacity:0;filter:blur(9px);transform:translateY(26px);
+    animation:wordIn .85s cubic-bezier(.18,.72,.24,1) forwards}
+  @keyframes wordIn{to{opacity:1;filter:blur(0);transform:none}}
+  .shine,.shine .w{color:transparent;-webkit-text-fill-color:transparent}
+  .shine{background:linear-gradient(100deg,var(--ink) 20%,#7ee2b4 42%,var(--blue) 58%,var(--ink) 78%);
+    background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 7s ease-in-out 1.1s infinite}
+  @keyframes shine{0%,100%{background-position:190% 0}50%{background-position:-40% 0}}
+
+  /* 4. hero fade-up for the rest */
+  .fadeUp{opacity:0;transform:translateY(20px);animation:fu .9s cubic-bezier(.2,.7,.26,1) forwards}
+  @keyframes fu{to{opacity:1;transform:none}}
+
+  /* 5. capability ticker */
+  .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:20px 0;overflow:hidden;background:rgba(255,255,255,.015);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+  .track{display:flex;gap:14px;width:max-content;animation:slide 46s linear infinite}
+  .band:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  .chip{display:flex;align-items:center;gap:9px;white-space:nowrap;font-size:14.5px;font-weight:560;
+    color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:9px 17px;
+    background:var(--panel)}
+  .chip i{width:7px;height:7px;border-radius:50%;background:var(--green);flex:none}
+  .chip.b i{background:var(--blue)} .chip.a i{background:var(--amber)}
+
+  /* 6. magnetic buttons */
+  .btn{will-change:transform}
+
+  /* 7. cursor spotlight inside cards */
+  .card{position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+    transition:opacity .3s ease;
+    background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),
+      rgba(34,181,115,.13),transparent 62%)}
+  .card:hover::before{opacity:1}
+  .card > *{position:relative}
+
+  /* 8. parallax on the hero shot */
+  .shot{will-change:transform}
+
+  /* 9. link + row micro-interactions */
+  .api a.row{transition:background .22s ease,padding-left .22s ease}
+  .api a.row:hover{padding-left:30px}
+  .api a.row b{transition:color .22s ease}
+  .api a.row:hover b{color:#7ee2b4}
+  .plan{transition:transform .2s ease,border-color .2s ease}
+  .plan:hover{transform:translateY(-2px);border-color:rgba(34,181,115,.4)}
+  .langs span{transition:transform .2s ease,border-color .2s ease,color .2s ease}
+  .langs span:hover{transform:translateY(-2px);color:var(--ink);border-color:rgba(34,181,115,.4)}
+
+  /* 10. price card lift emphasis */
+  .price .card:hover .amt{transform:scale(1.04)}
+  .price .amt{transition:transform .3s cubic-bezier(.22,.7,.26,1);display:inline-block}
+
+  @media (prefers-reduced-motion: reduce){
+    .track{animation:none}
+    h1 .w,.fadeUp{opacity:1!important;filter:none!important;transform:none!important;animation:none!important}
+    .shine,.shine .w{animation:none;color:var(--ink);-webkit-text-fill-color:var(--ink)}
+  }
 </style>
 </head>
 <body>
+<div class="prog"></div>
+<div class="grain"></div>
 
 <header>
   <div class="wrap nav">
@@ -177,22 +335,22 @@
 
 <div class="hero">
   <div class="wrap">
-    <span class="eyebrow">Hosted status pages</span>
+    <span class="eyebrow fadeUp">Hosted status pages</span>
     <h1>Incident communication, without lock-in.</h1>
-    <p class="sub">Monitors that notice. Incidents you publish. Subscribers you notify.
+    <p class="sub fadeUp" style="animation-delay:.5s">Monitors that notice. Incidents you publish. Subscribers you notify.
       An API to drive all three from your own systems — while you keep the account,
       the domain and the history.</p>
-    <div class="cta">
+    <div class="cta fadeUp" style="animation-delay:.62s">
       <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
       <a class="btn btn-s" href="https://demo.inbrief.sh">See a live status page</a>
     </div>
-    <div class="trust">
+    <div class="trust fadeUp" style="animation-delay:.74s">
       <i class="dot"></i> Running in production at
       <a href="https://status.sakneen.com">status.sakneen.com</a>
       — real incidents, not a mock-up
     </div>
 
-    <div class="shot">
+    <div class="shot fadeUp" style="animation-delay:.86s">
       <a href="https://demo.inbrief.sh"><img src="assets/status-page.png"
         alt="An InBrief status page showing an ongoing incident above fourteen days of service health"></a>
     </div>
@@ -200,6 +358,8 @@
   </div>
 </div>
 
+
+<div class="band"><div class="track"><span class="chip "><i></i>Status pages</span><span class="chip "><i></i>Monitoring</span><span class="chip a"><i></i>Incidents</span><span class="chip "><i></i>Subscribers</span><span class="chip b"><i></i>Custom domains</span><span class="chip "><i></i>Postmortems</span><span class="chip a"><i></i>Scheduled maintenance</span><span class="chip "><i></i>Slack alerts</span><span class="chip b"><i></i>Webhooks</span><span class="chip "><i></i>RSS &amp; Atom</span><span class="chip "><i></i>Uptime badges</span><span class="chip b"><i></i>Arabic, RTL</span><span class="chip "><i></i>Audit log</span><span class="chip a"><i></i>Outage continuity</span><span class="chip "><i></i>REST API</span><span class="chip b"><i></i>MCP preview</span><span class="chip "><i></i>Status pages</span><span class="chip "><i></i>Monitoring</span><span class="chip a"><i></i>Incidents</span><span class="chip "><i></i>Subscribers</span><span class="chip b"><i></i>Custom domains</span><span class="chip "><i></i>Postmortems</span><span class="chip a"><i></i>Scheduled maintenance</span><span class="chip "><i></i>Slack alerts</span><span class="chip b"><i></i>Webhooks</span><span class="chip "><i></i>RSS &amp; Atom</span><span class="chip "><i></i>Uptime badges</span><span class="chip b"><i></i>Arabic, RTL</span><span class="chip "><i></i>Audit log</span><span class="chip a"><i></i>Outage continuity</span><span class="chip "><i></i>REST API</span><span class="chip b"><i></i>MCP preview</span></div></div>
 <section id="why">
   <div class="wrap">
     <span class="eyebrow">Why teams move</span>
@@ -335,9 +495,9 @@
       <a class="row" href="https://inbrief.sh/docs/developers/badges-and-feeds"><b>Badges &amp; feeds</b><span>SVG badges, JSON status, RSS and Atom — public, no key required</span></a>
       <a class="row" href="https://inbrief.sh/docs/developers/mcp"><b>MCP</b><span>Model Context Protocol connection, in preview</span></a>
     </div>
-<pre><span class="tok">curl</span> -X POST https://api.inbrief.sh/v1/incidents \
+<div class="snip"><button class="copy" type="button">Copy</button><pre><span class="tok">curl</span> -X POST https://api.inbrief.sh/v1/incidents \
   -H <span class="tok">"Authorization: Bearer $INBRIEF_KEY"</span> \
-  -d <span class="tok">'{"title":"Checkout unavailable","impact":"high","services":["checkout"]}'</span></pre>
+  -d <span class="tok">'{"title":"Checkout unavailable","impact":"high","services":["checkout"]}'</span></pre></div>
     <p style="margin-top:18px;font-size:15px">The full REST contract is published as
       <a href="https://inbrief.sh/docs/developers/openapi.json" style="color:var(--green)">OpenAPI</a>,
       and the site ships an
@@ -425,16 +585,184 @@
 </div>
 
 <footer>
-  <div class="wrap frow">
-    <a class="brand" href="https://inbrief.sh" style="font-size:16px"><img src="assets/logo.png" alt="" style="width:22px;height:22px">InBrief</a>
-    <a href="https://inbrief.sh">inbrief.sh</a>
-    <a href="https://inbrief.sh/docs">Docs</a>
-    <a href="https://github.com/InBrief-Inc">GitHub</a>
-    <a href="https://www.linkedin.com/company/inbriefsh">LinkedIn</a>
-    <a href="mailto:support@inbrief.sh">support@inbrief.sh</a>
-    <span class="fnote">Built with TypeScript, Next.js, NestJS and MongoDB.</span>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <a class="brand" href="https://inbrief.sh"><img src="assets/logo.png" alt="">InBrief</a>
+        <p>Hosted status pages that keep your customers informed — while you keep the
+           account, the domain and the history.</p>
+        <a class="btn btn-p" href="https://inbrief.sh/build" style="margin-top:20px">Build your plan</a>
+      </div>
+      <div class="fcol">
+        <h4>Product</h4>
+        <a href="#why">Why InBrief</a>
+        <a href="#platform">Platform</a>
+        <a href="#deployment">Deployment</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://demo.inbrief.sh">Live demo</a>
+      </div>
+      <div class="fcol">
+        <h4>Developers</h4>
+        <a href="https://inbrief.sh/docs/developers/quickstart">Quickstart</a>
+        <a href="https://inbrief.sh/docs/developers/incident-api">Incident API</a>
+        <a href="https://inbrief.sh/docs/developers/webhooks">Webhooks</a>
+        <a href="https://inbrief.sh/docs/developers/badges-and-feeds">Badges &amp; feeds</a>
+        <a href="https://inbrief.sh/docs/developers/openapi.json">OpenAPI</a>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <a href="https://inbrief.sh">inbrief.sh</a>
+        <a href="https://inbrief.sh/docs">Documentation</a>
+        <a href="https://github.com/InBrief-Inc">GitHub</a>
+        <a href="https://www.linkedin.com/company/inbriefsh">LinkedIn</a>
+        <a href="mailto:support@inbrief.sh">Contact support</a>
+      </div>
+    </div>
+    <div class="fbase">
+      <span>&copy; 2026 InBrief. All rights reserved.</span>
+      <span class="flegal">
+        <a href="https://inbrief.sh/privacy">Privacy</a>
+        <a href="https://inbrief.sh/terms">Terms</a>
+        <a href="https://inbrief.sh/refunds">Refunds</a>
+      </span>
+    </div>
   </div>
 </footer>
 
+
+<a class="top" href="#" aria-label="Back to top">↑</a>
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* staggered scroll reveal */
+  var targets = document.querySelectorAll(
+    'section .eyebrow, section h2, section .lede, .card, .shot, .cap, .api, .badges, .shields, .feat > div, .snip, .split > div, .close .eyebrow, .close h2, .close p, .close .cta, .fgrid > div'
+  );
+  targets.forEach(function(el){ el.classList.add('reveal'); });
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e, i){
+        if (!e.isIntersecting) return;
+        var sibs = Array.prototype.slice.call(e.target.parentNode.children).indexOf(e.target);
+        e.target.style.transitionDelay = Math.min(Math.max(sibs,0), 5) * 70 + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
+  /* sticky header state + back to top */
+  var head = document.querySelector('header'), top = document.querySelector('.top');
+  addEventListener('scroll', function(){
+    head.classList.toggle('stuck', scrollY > 12);
+    top.classList.toggle('show', scrollY > 900);
+  }, { passive:true });
+  top.addEventListener('click', function(e){
+    e.preventDefault();
+    scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* price count-up */
+  var amts = document.querySelectorAll('.price .amt');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var pio = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target, html = el.innerHTML, m = html.match(/\$(\d+)/);
+        if (m) {
+          var end = +m[1], t0 = performance.now(), dur = 700;
+          (function step(now){
+            var k = Math.min((now - t0) / dur, 1), v = Math.round(end * (1 - Math.pow(1-k, 3)));
+            el.innerHTML = html.replace('$' + end, '$' + v);
+            if (k < 1) requestAnimationFrame(step);
+          })(t0);
+        }
+        pio.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    amts.forEach(function(el){ pio.observe(el); });
+  }
+
+  /* gentle tilt on the hero screenshot */
+  var shot = document.querySelector('.shot');
+  if (shot && !reduce && matchMedia('(pointer:fine)').matches) {
+    shot.addEventListener('pointermove', function(e){
+      var r = shot.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      shot.style.transform = 'perspective(1200px) rotateX(' + (-y*2.4) + 'deg) rotateY(' + (x*2.4) + 'deg) translateY(-3px)';
+    });
+    shot.addEventListener('pointerleave', function(){ shot.style.transform = ''; });
+  }
+
+  /* copy the curl snippet */
+  var btn = document.querySelector('.copy');
+  if (btn) btn.addEventListener('click', function(){
+    navigator.clipboard.writeText(btn.parentNode.querySelector('pre').innerText).then(function(){
+      btn.textContent = 'Copied'; btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* headline: split into words, stagger in */
+  var h1 = document.querySelector('h1');
+  if (h1) {
+    var words = h1.textContent.trim().split(/\s+/);
+    var html = words.map(function(w,i){
+      return '<span class="w" style="animation-delay:' + (i*0.075) + 's">' + w + '</span>';
+    });
+    var tail = html.splice(-2).join(' ');
+    h1.innerHTML = html.join(' ') + ' <span class="shine">' + tail + '</span>';
+  }
+
+  /* scroll progress */
+  var prog = document.querySelector('.prog');
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+  }
+  addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+  if (reduce) return;
+
+  /* magnetic buttons */
+  document.querySelectorAll('.btn').forEach(function(b){
+    b.addEventListener('pointermove', function(e){
+      var r = b.getBoundingClientRect();
+      b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*0.22) + 'px,' +
+                                        ((e.clientY-r.top-r.height/2)*0.32) + 'px)';
+    });
+    b.addEventListener('pointerleave', function(){ b.style.transform = ''; });
+  });
+
+  /* cursor spotlight in cards */
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('pointermove', function(e){
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  /* parallax drift on the hero screenshot */
+  var shot = document.querySelector('.shot'), ticking = false;
+  if (shot) addEventListener('scroll', function(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      shot.style.translate = '0 ' + (Math.min(scrollY, 700) * -0.035) + 'px';
+      ticking = false;
+    });
+  }, { passive:true });
+})();
+</script>
 </body>
 </html>
