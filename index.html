@@ -14,10 +14,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <style>
   :root{
-    --bg:#06111c; --panel:#0c1a27; --line:rgba(255,255,255,.10);
+    --bg:#06111c; --panel:#0c1a27; --panel2:#0a1622; --line:rgba(255,255,255,.10);
     --ink:#f2f7fb; --mut:rgba(242,247,251,.66); --dim:rgba(242,247,251,.44);
     --blue:#1b87c5; --green:#22b573; --deep:#1b7a4f; --amber:#e0a458; --red:#e06a63;
-    --r:16px; --max:1100px;
+    --r:16px; --max:1120px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -27,13 +27,21 @@
     -webkit-font-smoothing:antialiased; overflow-x:hidden;
   }
   a{color:inherit}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
   .eyebrow{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--green)}
-  h2{font-size:clamp(28px,4vw,40px);line-height:1.14;letter-spacing:-1.2px;font-weight:700;margin:10px 0 14px}
+  h2{font-size:clamp(28px,4vw,41px);line-height:1.13;letter-spacing:-1.3px;font-weight:700;margin:10px 0 14px}
   h3{font-size:19px;letter-spacing:-.3px;font-weight:650;margin-bottom:7px}
   p{color:var(--mut)}
-  section{padding:88px 0;border-top:1px solid var(--line)}
+  section{padding:92px 0;border-top:1px solid var(--line)}
   .lede{font-size:19px;max-width:62ch}
+  .mid{text-align:center}
+  .mid .lede{margin-left:auto;margin-right:auto}
+
+  /* icons */
+  .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;
+      stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .ic-lg{width:26px;height:26px}
 
   /* header */
   header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
@@ -44,64 +52,99 @@
   .nav nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
   .nav nav a{color:var(--mut);text-decoration:none}
   .nav nav a:hover{color:var(--ink)}
-  .btn{display:inline-block;padding:11px 20px;border-radius:999px;font-weight:650;font-size:15px;text-decoration:none;white-space:nowrap}
+  @media(max-width:900px){.nav nav{display:none}.nav .btn{margin-left:auto}}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;
+    border-radius:999px;font-weight:650;font-size:15px;text-decoration:none;white-space:nowrap}
   .btn-p{background:var(--green);color:#04231a}
   .btn-p:hover{background:#2bc681}
   .btn-s{border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.04)}
-  .btn-s:hover{border-color:rgba(255,255,255,.25)}
-  @media(max-width:820px){.nav nav{display:none}}
+  .btn-lg{padding:14px 26px;font-size:16px}
 
   /* hero */
-  .hero{position:relative;padding:96px 0 72px;border-top:0;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:-200px -200px auto;height:760px;z-index:-1;
+  .hero{position:relative;overflow:hidden;padding:100px 0 76px;text-align:center}
+  .hero::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:780px;z-index:0;
     background:
-      radial-gradient(760px 420px at 78% 12%,rgba(34,181,115,.26),transparent 62%),
-      radial-gradient(700px 420px at 14% 34%,rgba(27,135,197,.28),transparent 62%);}
-  h1{font-size:clamp(40px,6.6vw,68px);line-height:1.04;letter-spacing:-2.6px;font-weight:750;max-width:16ch}
-  .sub{font-size:clamp(18px,2.2vw,21px);color:var(--mut);max-width:58ch;margin-top:20px}
-  .cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
-  .cta .btn{padding:14px 26px;font-size:16px}
-  .trust{display:flex;align-items:center;gap:10px;margin-top:30px;font-size:14.5px;color:var(--dim);flex-wrap:wrap}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(34,181,115,.2)}
+      radial-gradient(52% 58% at 50% 0%, rgba(27,135,197,.30), transparent 70%),
+      radial-gradient(40% 48% at 82% 16%, rgba(34,181,115,.20), transparent 70%);
+    filter:blur(14px)}
+  .hero .wrap{position:relative;z-index:1}
+  h1{font-size:clamp(38px,6.2vw,66px);line-height:1.04;letter-spacing:-2.5px;font-weight:760;
+    margin:16px auto 20px;max-width:17ch}
+  .hero .lede{font-size:20px;max-width:60ch;margin:0 auto}
+  .cta{display:flex;gap:13px;margin-top:32px;flex-wrap:wrap;justify-content:center}
+  .trust{display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;margin-top:30px;
+    font-size:14.5px;color:var(--dim)}
+  .trust span{display:flex;align-items:center;gap:8px}
+  .trust .ic{width:16px;height:16px;color:var(--green)}
   .trust a{color:var(--mut)}
-  .shot{margin-top:56px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
-    box-shadow:0 40px 90px -30px rgba(0,0,0,.85)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none;display:inline-block}
+
+  /* screenshot */
+  .shot{margin-top:54px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    background:var(--panel);box-shadow:0 50px 110px -44px rgba(0,0,0,.95)}
   .shot img{display:block;width:100%}
-  .cap{margin-top:12px;font-size:13.5px;color:var(--dim);text-align:center}
+  .cap{margin-top:14px;font-size:14px;color:var(--dim);text-align:center}
 
-  /* generic grid */
-  .grid{display:grid;gap:18px;margin-top:40px}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  @media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+  /* generic cards */
   .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px}
-  .card p{font-size:15.5px}
-  .ico{font-size:24px;display:block;margin-bottom:12px}
+  .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:880px){.g2,.g3{grid-template-columns:1fr}}
+  .card > .ic{color:var(--green);margin-bottom:14px}
+  .card p{font-size:15.5px;line-height:1.6}
 
-  /* why */
-  .why{display:grid;gap:22px;grid-template-columns:repeat(2,1fr);margin-top:44px}
-  @media(max-width:860px){.why{grid-template-columns:1fr}}
-  .why .card{padding:30px}
-  .why h3{font-size:21px;margin-bottom:10px}
-  .plans{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
-  .plan{border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:14.5px;font-weight:620;background:rgba(255,255,255,.03)}
-  .plan b{color:var(--green)}
+  /* problem */
+  .prob{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+  @media(max-width:880px){.prob{grid-template-columns:1fr}}
+  .prob .card > .ic{color:var(--amber)}
 
-  /* arabic split */
-  .split{display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:center;margin-top:40px}
-  @media(max-width:960px){.split{grid-template-columns:1fr}}
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:48px}
+  @media(max-width:880px){.steps{grid-template-columns:1fr;gap:28px}}
+  .step .n{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;
+    background:rgba(34,181,115,.13);border:1px solid rgba(34,181,115,.34);color:#7ee2b4;
+    font-weight:750;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:18.5px}
+  .step p{font-size:15.5px}
+
+  /* comparison */
+  .cmp{margin-top:44px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+  .cmp .row{display:grid;grid-template-columns:1.05fr 1fr 1fr;border-bottom:1px solid var(--line)}
+  .cmp .row:last-child{border-bottom:0}
+  .cmp .row > *{padding:16px 20px;font-size:15px;line-height:1.5;border-right:1px solid var(--line)}
+  .cmp .row > *:last-child{border-right:0}
+  .cmp .head > *{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;
+    color:var(--dim);background:rgba(255,255,255,.025)}
+  .cmp .head .us{color:#7ee2b4;background:rgba(34,181,115,.08)}
+  .cmp .q{color:var(--ink);font-weight:600}
+  .cmp .them{color:var(--dim)}
+  .cmp .us{color:var(--mut);background:rgba(34,181,115,.035)}
+  .cmp .us b{color:var(--ink);font-weight:620}
+  @media(max-width:820px){
+    .cmp .row{grid-template-columns:1fr}
+    .cmp .row > *{border-right:0;border-bottom:1px solid var(--line)}
+    .cmp .row > *:last-child{border-bottom:0}
+    .cmp .head{display:none}
+    .cmp .them::before{content:"Tiered — ";color:var(--dim);font-weight:700}
+    .cmp .us::before{content:"InBrief — ";color:#7ee2b4;font-weight:700}
+  }
+
+  /* split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-top:40px}
+  @media(max-width:960px){.split{grid-template-columns:1fr;gap:34px}}
   .split img{width:100%;display:block;border:1px solid var(--line);border-radius:var(--r);
     box-shadow:0 30px 70px -30px rgba(0,0,0,.8)}
-  .langs{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+  .split p + p{margin-top:14px}
+  .langs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
   .langs span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--mut)}
 
   /* deployment */
   .dep{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
-  @media(max-width:860px){.dep{grid-template-columns:1fr}}
-  .dep .card{position:relative;padding-top:30px}
-  .num{font-size:12.5px;letter-spacing:2px;color:var(--dim);font-weight:700}
-  .tag{position:absolute;top:22px;right:22px;font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;
-    font-weight:700;padding:5px 11px;border-radius:999px}
+  @media(max-width:880px){.dep{grid-template-columns:1fr}}
+  .dephd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .dephd h3{margin:0}
+  .tag{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;
+    padding:5px 11px;border-radius:999px;white-space:nowrap;flex:none}
   .now{background:rgba(34,181,115,.15);color:#7ee2b4;border:1px solid rgba(34,181,115,.35)}
   .soon{background:rgba(255,255,255,.05);color:var(--dim);border:1px solid var(--line)}
 
@@ -110,8 +153,9 @@
     border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
   @media(max-width:960px){.feat{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:620px){.feat{grid-template-columns:1fr}}
-  .feat div{padding:24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .feat h3{font-size:16.5px}
+  .feat > div{padding:24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .feat h3{font-size:16.5px;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .feat h3 .ic{width:19px;height:19px;color:var(--green)}
   .feat p{font-size:14.5px;line-height:1.55}
 
   /* dev */
@@ -127,55 +171,71 @@
   .tok{color:var(--green)}
 
   /* badges */
-  .badges{display:grid;grid-template-columns:180px 1fr;gap:0;margin-top:36px;
+  .badges{display:grid;grid-template-columns:190px 1fr;gap:0;margin-top:36px;
     border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
   @media(max-width:620px){.badges{grid-template-columns:1fr}}
   .badges > div{padding:15px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
   .badges > div:nth-child(odd){border-right:1px solid var(--line)}
   .badges img{height:20px;display:block}
-  .badges code{font-size:13px;color:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .badges code{font-size:13px;color:var(--mut)}
   .badges em{color:var(--dim);font-style:normal;font-size:14px;margin-left:auto;text-align:right}
   @media(max-width:620px){.badges em{display:none}}
   .shields{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:22px}
 
   /* pricing */
-  .price{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
-  @media(max-width:860px){.price{grid-template-columns:1fr}}
-  .price .card{text-align:center;padding:32px 26px}
-  .price .amt{font-size:42px;font-weight:750;letter-spacing:-2px;margin:6px 0}
+  .price{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px;align-items:stretch}
+  @media(max-width:880px){.price{grid-template-columns:1fr;margin-top:44px}}
+  .price .card{padding:30px 26px;display:flex;flex-direction:column}
+  .price .nm{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dim)}
+  .price .amt{font-size:48px;font-weight:760;letter-spacing:-2.5px;margin:10px 0 4px;display:block;line-height:1}
   .price .amt small{font-size:15px;font-weight:500;color:var(--dim);letter-spacing:0}
-  .price .nm{font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dim)}
+  .price .sub{font-size:15px}
+  .price ul{list-style:none;margin:20px 0 24px;border-top:1px solid var(--line);padding-top:18px;flex:1}
+  .price li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--mut);padding:5px 0;line-height:1.5}
+  .price li .ic{width:16px;height:16px;color:var(--green);margin-top:4px}
+  .price .btn{width:100%}
   .hl{border-color:rgba(34,181,115,.45)!important;box-shadow:0 0 0 1px rgba(34,181,115,.18)}
+  .price .card{overflow:visible}
+  .price .best{position:absolute;top:-12px;left:50%;transform:translateX(-50%);z-index:2;
+    background:var(--green);color:#04231a;font-size:11.5px;font-weight:750;letter-spacing:1.2px;
+    text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap}
+  .pnote{margin-top:28px;text-align:center;font-size:15.5px}
+
+  /* faq */
+  .faq{margin-top:44px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq details:last-child{border-bottom:0}
+  .faq summary{padding:20px 24px;cursor:pointer;font-weight:620;font-size:16.5px;
+    list-style:none;display:flex;align-items:center;gap:14px;transition:background .2s ease}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:hover{background:rgba(255,255,255,.03)}
+  .faq summary .ic{width:18px;height:18px;color:var(--green);margin-left:auto;
+    transition:transform .25s cubic-bezier(.22,.7,.26,1)}
+  .faq details[open] summary .ic{transform:rotate(45deg)}
+  .faq .ans{padding:0 24px 22px;font-size:15.5px;color:var(--mut);line-height:1.62;max-width:78ch}
+  .faq .ans a{color:#7ee2b4}
 
   /* close */
-  .close{text-align:center;padding:104px 0}
-  .close h2{max-width:20ch;margin:10px auto 16px}
-  .close p{margin:0 auto;max-width:54ch}
-  footer{border-top:1px solid var(--line);padding:40px 0;font-size:14.5px;color:var(--dim)}
-  .frow{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
-  footer a{color:var(--mut);text-decoration:none}
-  footer a:hover{color:var(--ink)}
-  .fnote{margin-left:auto}
-  @media(max-width:700px){.fnote{margin-left:0;width:100%}}
+  .close{text-align:center;padding:104px 0;border-top:1px solid var(--line)}
+  .close h2{max-width:20ch;margin-left:auto;margin-right:auto}
+  .close p{max-width:54ch;margin:0 auto;font-size:18px}
 
-  /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--line);padding:64px 0 34px;margin-top:0}
-  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px}
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:66px 0 40px;background:var(--panel2)}
+  .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px}
   @media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:36px}}
   @media(max-width:560px){.fgrid{grid-template-columns:1fr}}
-  .fbrand p{font-size:14.5px;line-height:1.6;margin-top:14px;max-width:34ch;color:var(--dim)}
-  .fbrand .btn{padding:10px 18px;font-size:14.5px}
-  .fcol h4{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--dim);
+  .fbrand p{font-size:15px;margin:14px 0 20px;max-width:34ch}
+  .fcol h4{font-size:12.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--dim);
     font-weight:700;margin-bottom:15px}
-  .fcol a{display:block;font-size:14.5px;color:var(--mut);text-decoration:none;padding:5px 0;
-    transition:color .18s ease,transform .18s ease}
-  .fcol a:hover{color:var(--ink);transform:translateX(3px)}
-  .fbase{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:48px;
-    padding-top:24px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim)}
-  .flegal{margin-left:auto;display:flex;gap:20px}
-  @media(max-width:560px){.flegal{margin-left:0}}
+  .fcol a{display:block;color:var(--mut);text-decoration:none;font-size:15px;padding:5px 0}
+  .fcol a:hover{color:var(--ink)}
+  .fbase{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:14px;color:var(--dim)}
+  .flegal{display:flex;gap:20px}
   .flegal a{color:var(--dim);text-decoration:none}
-  .flegal a:hover{color:var(--ink)}
+  .flegal a:hover{color:var(--mut)}
 
   /* ---------- motion ---------- */
   .reveal{opacity:0;transform:translateY(22px);
@@ -211,15 +271,16 @@
   .card{transition:transform .3s cubic-bezier(.22,.7,.26,1),border-color .3s ease,box-shadow .3s ease}
   .card:hover{transform:translateY(-4px);border-color:rgba(34,181,115,.34);
     box-shadow:0 22px 48px -26px rgba(0,0,0,.9)}
-  .feat div{transition:background .25s ease}
-  .feat div:hover{background:rgba(34,181,115,.055)}
+  .feat > div{transition:background .25s ease}
+  .feat > div:hover{background:rgba(34,181,115,.055)}
+  .cmp .row:not(.head):hover .us{background:rgba(34,181,115,.075)}
+  .cmp .us{transition:background .25s ease}
 
   .shot{transition:transform .35s cubic-bezier(.22,.7,.26,1),box-shadow .35s ease;transform-style:preserve-3d;will-change:transform}
 
   .badges img,.shields img{transition:transform .2s ease}
   .badges > div:hover img,.shields img:hover{transform:scale(1.08)}
 
-  /* copy button on the snippet */
   .snip{position:relative}
   .copy{position:absolute;top:12px;right:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);
     color:var(--mut);border-radius:8px;padding:6px 12px;font:600 12.5px/1 inherit;cursor:pointer;
@@ -227,7 +288,6 @@
   .copy:hover{color:var(--ink);border-color:rgba(255,255,255,.3)}
   .copy.done{color:#7ee2b4;border-color:rgba(34,181,115,.5)}
 
-  /* back to top */
   .top{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;
     display:grid;place-items:center;background:var(--panel);border:1px solid var(--line);
     color:var(--mut);text-decoration:none;opacity:0;pointer-events:none;transform:translateY(10px);
@@ -235,38 +295,27 @@
   .top.show{opacity:1;pointer-events:auto;transform:none}
   .top:hover{color:var(--ink);border-color:rgba(34,181,115,.5);transform:translateY(-3px)}
 
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    .reveal{opacity:1;transform:none}
-  }
-
-  /* ---------- premium motion layer ---------- */
-
-  /* 1. scroll progress */
+  /* premium motion layer */
   .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:100;
     background:linear-gradient(90deg,var(--blue),var(--green));
     box-shadow:0 0 14px rgba(34,181,115,.6);transition:width .08s linear}
 
-  /* 2. film grain */
   .grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.035;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  /* 3. word-by-word headline */
   h1 .w{display:inline-block;opacity:0;filter:blur(9px);transform:translateY(26px);
     animation:wordIn .85s cubic-bezier(.18,.72,.24,1) forwards}
   @keyframes wordIn{to{opacity:1;filter:blur(0);transform:none}}
   .shine{position:relative;display:inline-block}
-  .shine::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.075em;
+  .shine::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.068em;
     border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--green));
     transform:scaleX(0);transform-origin:left;
     animation:ul .95s cubic-bezier(.2,.72,.24,1) 1.15s forwards}
   @keyframes ul{to{transform:scaleX(1)}}
 
-  /* 4. hero fade-up for the rest */
   .fadeUp{opacity:0;transform:translateY(20px);animation:fu .9s cubic-bezier(.2,.7,.26,1) forwards}
   @keyframes fu{to{opacity:1;transform:none}}
 
-  /* 5. capability ticker */
   .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     padding:20px 0;overflow:hidden;background:rgba(255,255,255,.015);
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
@@ -280,39 +329,33 @@
   .chip i{width:7px;height:7px;border-radius:50%;background:var(--green);flex:none}
   .chip.b i{background:var(--blue)} .chip.a i{background:var(--amber)}
 
-  /* 6. magnetic buttons */
   .btn{will-change:transform}
 
-  /* 7. cursor spotlight inside cards */
   .card{position:relative;overflow:hidden}
-  .card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  .card::before{content:"";position:absolute;inset:0;border-radius:var(--r);pointer-events:none;opacity:0;
     transition:opacity .3s ease;
     background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),
       rgba(34,181,115,.13),transparent 62%)}
   .card:hover::before{opacity:1}
   .card > *{position:relative}
 
-  /* 8. parallax on the hero shot */
   .shot{will-change:transform}
 
-  /* 9. link + row micro-interactions */
   .api a.row{transition:background .22s ease,padding-left .22s ease}
   .api a.row:hover{padding-left:30px}
   .api a.row b{transition:color .22s ease}
   .api a.row:hover b{color:#7ee2b4}
-  .plan{transition:transform .2s ease,border-color .2s ease}
-  .plan:hover{transform:translateY(-2px);border-color:rgba(34,181,115,.4)}
   .langs span{transition:transform .2s ease,border-color .2s ease,color .2s ease}
   .langs span:hover{transform:translateY(-2px);color:var(--ink);border-color:rgba(34,181,115,.4)}
 
-  /* 10. price card lift emphasis */
-  .price .card:hover .amt{transform:scale(1.04)}
-  .price .amt{transition:transform .3s cubic-bezier(.22,.7,.26,1);display:inline-block}
+  .price .card:hover .amt{transform:scale(1.03)}
+  .price .amt{transition:transform .3s cubic-bezier(.22,.7,.26,1)}
 
   @media (prefers-reduced-motion: reduce){
-    .track{animation:none}
-    h1 .w,.fadeUp{opacity:1!important;filter:none!important;transform:none!important;animation:none!important}
-    .shine::after{animation:none;transform:scaleX(1)}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    h1 .w,.fadeUp{opacity:1!important;filter:none!important;transform:none!important}
+    .shine::after{transform:scaleX(1)}
   }
 </style>
 </head>
@@ -320,11 +363,34 @@
 <div class="prog"></div>
 <div class="grain"></div>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 12 22l-9-9V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.4" cy="7.4" r="1.3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.8 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.8-3.8-9S9.5 5.7 12 3Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.6c0 4.4-3 8.3-7.5 9.4-4.5-1.1-7.5-5-7.5-9.4V6Z"/><path d="m9.2 12.2 2 2 3.6-3.8"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m8.5 8.5-4 3.5 4 3.5M15.5 8.5l4 3.5-4 3.5M13.4 5.5l-2.8 13"/></symbol>
+  <symbol id="i-page" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+  <symbol id="i-domain" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.5 5.4 3.5 8.5s-1.2 6.1-3.5 8.5c-2.3-2.4-3.5-5.4-3.5-8.5S9.7 5.9 12 3.5Z"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24"><path d="M4.9 16.5a8.5 8.5 0 1 1 14.6-5.9"/><circle cx="12" cy="12" r="2"/><path d="M12 12 19 6M12 20.5v-4"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.2 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z"/><path d="M12 9.5v4M12 17h.01"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2.5 7.5-2.5 7.5h17S18 14.5 18 8.5Z"/><path d="M13.7 19.5a2 2 0 0 1-3.4 0"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 12.5a7.5 7.5 0 0 1-10.8 6.7L4 20.5l1.3-5.5A7.5 7.5 0 1 1 20.5 12.5Z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 20.5h17M7 20.5v-6M12 20.5V6M17 20.5v-9"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9.5" cy="8" r="3.3"/><path d="M3 20c0-3.4 2.9-5.6 6.5-5.6S16 16.6 16 20"/><path d="M16.5 5.2a3.3 3.3 0 0 1 0 6M18 14.8c2 .8 3.3 2.5 3.3 5.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3.5 13.5 6 4.5h12l2.5 9v6h-17Z"/><path d="M3.5 13.5h4l1.3 2.5h6.4l1.3-2.5h4"/></symbol>
+  <symbol id="i-off" viewBox="0 0 24 24"><path d="M12 3.5v8"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></symbol>
+</defs></svg>
+
 <header>
   <div class="wrap nav">
-    <a class="brand" href="https://inbrief.sh"><img src="assets/logo.png" alt="">InBrief</a>
+    <a class="brand" href="https://inbrief.sh"><img src="assets/logo.png" alt=""> InBrief</a>
     <nav>
       <a href="#why">Why InBrief</a>
+      <a href="#compare">Compare</a>
       <a href="#platform">Platform</a>
       <a href="#developers">Developers</a>
       <a href="#pricing">Pricing</a>
@@ -336,129 +402,262 @@
 
 <div class="hero">
   <div class="wrap">
-    <span class="eyebrow fadeUp">Hosted status pages</span>
+    <div class="eyebrow fadeUp" style="animation-delay:.05s">Hosted status pages</div>
     <h1>Incident communication, without lock-in.</h1>
-    <p class="sub fadeUp" style="animation-delay:.5s">Monitors that notice. Incidents you publish. Subscribers you notify.
-      An API to drive all three from your own systems — while you keep the account,
-      the domain and the history.</p>
-    <div class="cta fadeUp" style="animation-delay:.62s">
-      <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
-      <a class="btn btn-s" href="https://demo.inbrief.sh">See a live status page</a>
+    <p class="lede fadeUp" style="animation-delay:.75s">
+      Monitors that notice. Incidents you publish. Subscribers you notify. An API to drive
+      all three from your own systems — while you keep the account, the domain and the history.
+    </p>
+    <div class="cta fadeUp" style="animation-delay:.87s">
+      <a class="btn btn-p btn-lg" href="https://inbrief.sh/build">Build your plan</a>
+      <a class="btn btn-s btn-lg" href="https://demo.inbrief.sh">See a live status page</a>
     </div>
-    <div class="trust fadeUp" style="animation-delay:.74s">
-      <i class="dot"></i> Running in production at
-      <a href="https://status.sakneen.com">status.sakneen.com</a>
-      — real incidents, not a mock-up
+    <div class="trust fadeUp" style="animation-delay:.99s">
+      <span><svg class="ic"><use href="#i-check"/></svg> Free to start, no card</span>
+      <span><svg class="ic"><use href="#i-check"/></svg> Your domain, your history</span>
+      <span><i class="dot"></i> In production at <a href="https://status.sakneen.com">status.sakneen.com</a></span>
     </div>
 
-    <div class="shot fadeUp" style="animation-delay:.86s">
+    <div class="shot fadeUp" style="animation-delay:1.1s">
       <a href="https://demo.inbrief.sh"><img src="assets/status-page.png"
-        alt="An InBrief status page showing an ongoing incident above fourteen days of service health"></a>
+        alt="An InBrief status page during an incident, showing the incident update above fourteen days of service health."></a>
     </div>
     <p class="cap">Our demonstration page, held in an incident on purpose so you can see how one reads.</p>
   </div>
 </div>
 
+<div class="band">
+  <div class="track">
+    <span class="chip"><i></i>Status pages</span>
+    <span class="chip"><i></i>Monitoring</span>
+    <span class="chip a"><i></i>Incidents</span>
+    <span class="chip"><i></i>Subscribers</span>
+    <span class="chip b"><i></i>Custom domains</span>
+    <span class="chip"><i></i>Postmortems</span>
+    <span class="chip a"><i></i>Scheduled maintenance</span>
+    <span class="chip"><i></i>Slack alerts</span>
+    <span class="chip b"><i></i>Webhooks</span>
+    <span class="chip"><i></i>RSS &amp; Atom</span>
+    <span class="chip b"><i></i>Arabic &amp; RTL</span>
+    <span class="chip"><i></i>Outage continuity</span>
+    <span class="chip a"><i></i>Audit log</span>
+    <span class="chip"><i></i>Analytics</span>
+    <span class="chip b"><i></i>Public REST API</span>
+    <span class="chip" aria-hidden="true"><i></i>Status pages</span>
+    <span class="chip" aria-hidden="true"><i></i>Monitoring</span>
+    <span class="chip a" aria-hidden="true"><i></i>Incidents</span>
+    <span class="chip" aria-hidden="true"><i></i>Subscribers</span>
+    <span class="chip b" aria-hidden="true"><i></i>Custom domains</span>
+    <span class="chip" aria-hidden="true"><i></i>Postmortems</span>
+    <span class="chip a" aria-hidden="true"><i></i>Scheduled maintenance</span>
+    <span class="chip" aria-hidden="true"><i></i>Slack alerts</span>
+    <span class="chip b" aria-hidden="true"><i></i>Webhooks</span>
+    <span class="chip" aria-hidden="true"><i></i>RSS &amp; Atom</span>
+    <span class="chip b" aria-hidden="true"><i></i>Arabic &amp; RTL</span>
+    <span class="chip" aria-hidden="true"><i></i>Outage continuity</span>
+    <span class="chip a" aria-hidden="true"><i></i>Audit log</span>
+    <span class="chip" aria-hidden="true"><i></i>Analytics</span>
+    <span class="chip b" aria-hidden="true"><i></i>Public REST API</span>
+  </div>
+</div>
 
-<div class="band"><div class="track"><span class="chip "><i></i>Status pages</span><span class="chip "><i></i>Monitoring</span><span class="chip a"><i></i>Incidents</span><span class="chip "><i></i>Subscribers</span><span class="chip b"><i></i>Custom domains</span><span class="chip "><i></i>Postmortems</span><span class="chip a"><i></i>Scheduled maintenance</span><span class="chip "><i></i>Slack alerts</span><span class="chip b"><i></i>Webhooks</span><span class="chip "><i></i>RSS &amp; Atom</span><span class="chip "><i></i>Uptime badges</span><span class="chip b"><i></i>Arabic, RTL</span><span class="chip "><i></i>Audit log</span><span class="chip a"><i></i>Outage continuity</span><span class="chip "><i></i>REST API</span><span class="chip b"><i></i>MCP preview</span><span class="chip "><i></i>Status pages</span><span class="chip "><i></i>Monitoring</span><span class="chip a"><i></i>Incidents</span><span class="chip "><i></i>Subscribers</span><span class="chip b"><i></i>Custom domains</span><span class="chip "><i></i>Postmortems</span><span class="chip a"><i></i>Scheduled maintenance</span><span class="chip "><i></i>Slack alerts</span><span class="chip b"><i></i>Webhooks</span><span class="chip "><i></i>RSS &amp; Atom</span><span class="chip "><i></i>Uptime badges</span><span class="chip b"><i></i>Arabic, RTL</span><span class="chip "><i></i>Audit log</span><span class="chip a"><i></i>Outage continuity</span><span class="chip "><i></i>REST API</span><span class="chip b"><i></i>MCP preview</span></div></div>
-<section id="why">
-  <div class="wrap">
-    <span class="eyebrow">Why teams move</span>
-    <h2>Four things most status pages get wrong</h2>
-    <p class="lede">Each of these is a capability you can switch on by itself — not a reason to buy a bigger plan.</p>
-
-    <div class="why">
+<section id="problem">
+  <div class="wrap reveal">
+    <div class="mid">
+      <div class="eyebrow">The hour you are buying this for</div>
+      <h2>Something breaks at 03:00. Now what?</h2>
+      <p class="lede">Whatever you set up before that moment is what you get to use during it.</p>
+    </div>
+    <div class="prob">
       <div class="card">
-        <span class="ico">💸</span>
-        <h3>Pay for what you switch on</h3>
-        <p>Tiered pricing makes you buy a bundle to reach one thing inside it — the custom
-          domain sits in the tier above yours, so you pay for four capabilities you will
-          never open to get the one you came for. Here every capability carries its own
-          price, the builder shows the running total as you add and remove, and that total
-          is what checkout charges.</p>
-        <div class="plans">
-          <span class="plan">Free <b>$0</b></span>
-          <span class="plan">Start <b>$10</b></span>
-          <span class="plan">Pro <b>$20</b></span>
-          <a class="plan" href="https://inbrief.sh/build" style="text-decoration:none">or build your own →</a>
-        </div>
+        <svg class="ic ic-lg"><use href="#i-inbox"/></svg>
+        <h3>Support becomes the status page</h3>
+        <p>Nobody can tell whether it is them or you, so they all ask. Your responders stop fixing
+          the outage and start answering the same question forty times.</p>
       </div>
-
       <div class="card">
-        <span class="ico">🌍</span>
+        <svg class="ic ic-lg"><use href="#i-off"/></svg>
+        <h3>The status page is down too</h3>
+        <p>It was served from the infrastructure it reports on. Customers go to check it at exactly
+          the moment it cannot answer, and get a connection error instead of a message.</p>
+      </div>
+      <div class="card">
+        <svg class="ic ic-lg"><use href="#i-clock"/></svg>
+        <h3>The update is late, or in one language</h3>
+        <p>Someone has to stop and hand-write it — then write it again for the audience that does
+          not read English. Minutes you do not have, spent twice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap reveal">
+    <div class="mid">
+      <div class="eyebrow">How it works</div>
+      <h2>Three steps, then it runs itself</h2>
+      <p class="lede">You are not buying a project. You are buying a page that is already up by the
+        time you need it.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>Put your services on a page</h3>
+        <p>Add the things customers care about, apply your logo and accent, and point your own
+          domain at it. The certificate is issued and renewed for you.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>Let the checks watch them</h3>
+        <p>Website, port, DNS and cron-job checks run continuously and group into the services your
+          customers recognise, so the page is right before anyone asks.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>Publish once, reach everyone</h3>
+        <p>One incident update goes to the page, into every language you publish in, and out to
+          email, Discord, Microsoft Teams, Telegram and browser push.</p>
+      </div>
+    </div>
+    <div class="cta" style="margin-top:44px">
+      <a class="btn btn-p btn-lg" href="https://inbrief.sh/build">Start free</a>
+      <a class="btn btn-s btn-lg" href="https://inbrief.sh/docs/product/quick-start">Read the quickstart</a>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap reveal">
+    <div class="eyebrow">Why teams move</div>
+    <h2>Four things most status pages get wrong</h2>
+    <p class="lede">Each of these is a capability you can switch on by itself — not a reason to buy
+      a bigger plan.</p>
+    <div class="g2">
+      <div class="card">
+        <svg class="ic ic-lg"><use href="#i-tag"/></svg>
+        <h3>Pay for what you switch on</h3>
+        <p>Tiered pricing makes you buy a bundle to reach one thing inside it — the custom domain
+          sits in the tier above yours, so you pay for four capabilities you will never open to get
+          the one you came for. Here every capability carries its own price, the builder shows the
+          running total as you add and remove, and that total is what checkout charges.</p>
+      </div>
+      <div class="card">
+        <svg class="ic ic-lg"><use href="#i-globe"/></svg>
         <h3>Write the incident once, publish it everywhere</h3>
         <p>Choose the languages your page publishes in and InBrief prepares the translations
-          automatically — you review them before anything goes out. Visitors pick their own
-          with a toggle, and the choice sticks for the rest of the incident. One page, not
-          an incident written twice.</p>
+          automatically — you review them before anything goes out. Visitors pick their own with a
+          toggle, and the choice sticks for the rest of the incident. One page, not an incident
+          written twice.</p>
       </div>
-
       <div class="card">
-        <span class="ico">🛟</span>
+        <svg class="ic ic-lg"><use href="#i-shield"/></svg>
         <h3>A page that survives the outage it reports</h3>
-        <p>A status page served from the infrastructure it reports on is the one page
-          guaranteed to be down exactly when it matters. Outage continuity puts the
-          customer-facing page somewhere else entirely, so visitors still get a page —
-          carrying your message instead of a connection error.</p>
+        <p>A status page served from the infrastructure it reports on is the one page guaranteed to
+          be down exactly when it matters. Outage continuity puts the customer-facing page somewhere
+          else entirely, so visitors still get a page — carrying your message instead of a
+          connection error.</p>
       </div>
-
       <div class="card">
-        <span class="ico">🔌</span>
+        <svg class="ic ic-lg"><use href="#i-code"/></svg>
         <h3>Machine-drivable from the first day</h3>
-        <p>Open, update and resolve incidents over REST. Verify signed webhooks. Read the
-          public ledger as JSON, RSS or Atom. The full contract ships as OpenAPI, and the
-          site publishes an <code>llms.txt</code> so coding agents can read it directly.</p>
+        <p>Open, update and resolve incidents over REST. Verify signed webhooks. Read the public
+          ledger as JSON, RSS or Atom. The full contract ships as OpenAPI, and the site publishes an
+          <code>llms.txt</code> so coding agents can read it directly.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap reveal">
+    <div class="eyebrow">Two pricing models, side by side</div>
+    <h2>The tier is the product you did not want</h2>
+    <p class="lede">Named plans still exist here. They are only ever a preselected set of the same
+      capabilities at a discount — a shortcut, never a different product.</p>
+    <div class="cmp">
+      <div class="row head">
+        <div>What you want</div>
+        <div>Tiered pricing</div>
+        <div class="us">InBrief</div>
+      </div>
+      <div class="row">
+        <div class="q">Your own domain on the page</div>
+        <div class="them">Move up a plan. Pay for the whole tier that contains it.</div>
+        <div class="us"><b>Add the capability.</b> Pay for the capability.</div>
+      </div>
+      <div class="row">
+        <div class="q">A second or third language</div>
+        <div class="them">Usually not offered at all, so you write every incident twice.</div>
+        <div class="us"><b>Switch the languages on.</b> Write once, it publishes in all of them.</div>
+      </div>
+      <div class="row">
+        <div class="q">A page that stays up in an outage</div>
+        <div class="them">Bundled and invisible, or absent — you find out during the incident.</div>
+        <div class="us"><b>A capability you can name,</b> priced and switched on by itself.</div>
+      </div>
+      <div class="row">
+        <div class="q">To know what it will cost</div>
+        <div class="them">Seat multipliers, usage bands, annual commitment.</div>
+        <div class="us"><b>A running total in the builder</b> that is what checkout charges.</div>
+      </div>
+      <div class="row">
+        <div class="q">To use exactly one thing</div>
+        <div class="them">You still pay for the four sitting beside it.</div>
+        <div class="us"><b>You pay for one thing.</b></div>
+      </div>
+      <div class="row">
+        <div class="q">To leave</div>
+        <div class="them">The domain, the history and the audience were never quite yours.</div>
+        <div class="us"><b>The account, the domain and the history stay yours.</b></div>
+      </div>
+    </div>
+    <div class="cta" style="margin-top:38px">
+      <a class="btn btn-p btn-lg" href="https://inbrief.sh/build">Build your plan
+        <svg class="ic" style="width:17px;height:17px"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
 
 <section id="languages">
-  <div class="wrap">
-    <span class="eyebrow">Four languages, properly</span>
+  <div class="wrap reveal">
+    <div class="eyebrow">Four languages, properly</div>
     <h2>Arabic is a first-class language here</h2>
     <div class="split">
       <div>
-        <p>Most status pages are English-only, so a team serving a region that does not read
-          English writes every incident twice — or writes it once and accepts that half the
-          audience will not follow it.</p>
-        <p style="margin-top:16px">Arabic is not a translation target bolted on. The page renders
-          <strong style="color:var(--ink)">right-to-left, with Arabic-Indic digits</strong>, because a
-          right-to-left page laid out left-to-right reads as broken to the people it is for.</p>
+        <p>Most status pages are English-only, so a team serving a region that does not read English
+          writes every incident twice — or writes it once and accepts that half the audience will
+          not follow it.</p>
+        <p>Arabic is not a translation target bolted on. The page renders
+          <strong style="color:var(--ink)">right-to-left, with Arabic-Indic digits</strong>, because
+          a right-to-left page laid out left-to-right reads as broken to the people it is for.</p>
         <div class="langs">
           <span>English</span><span>العربية · RTL</span><span>Français</span><span>Español</span>
         </div>
       </div>
-      <div>
-        <a href="https://demo.inbrief.sh/?lang=ar"><img src="assets/status-page-arabic.png"
-          alt="The same status page in Arabic, mirrored right to left with Arabic-Indic numerals"></a>
-      </div>
+      <img src="assets/status-page-arabic.png" alt="The same status page rendered in Arabic, right-to-left, with Arabic-Indic digits.">
     </div>
   </div>
 </section>
 
 <section id="deployment">
-  <div class="wrap">
-    <span class="eyebrow">Deployment</span>
+  <div class="wrap reveal">
+    <div class="eyebrow">Deployment</div>
     <h2>Run it where your compliance team needs it</h2>
-    <p class="lede">Manage incidents in InBrief Cloud and choose where operational event
-      history is stored. Private deployment options are published now and open when their
-      support boundaries are ready.</p>
+    <p class="lede">Manage incidents in InBrief Cloud and choose where operational event history is
+      stored. Private deployment options are published now and open when their support boundaries
+      are ready.</p>
     <div class="dep">
       <div class="card">
-        <span class="tag now">Available</span>
-        <span class="num">01</span><h3>Cloud</h3>
-        <p>Nothing to install. We run the product, the delivery and the upgrades. Self-serve
-          from the builder.</p>
+        <div class="dephd"><h3>Cloud</h3><span class="tag now">Available</span></div>
+        <p>Nothing to install. We run the product, the delivery and the upgrades. Self-serve from
+          the builder.</p>
       </div>
       <div class="card">
-        <span class="tag soon">Coming soon</span>
-        <span class="num">02</span><h3>On-premises</h3>
+        <div class="dephd"><h3>On-premises</h3><span class="tag soon">Coming soon</span></div>
         <p>The whole product inside your own perimeter, for teams whose data cannot leave it.</p>
       </div>
       <div class="card">
-        <span class="tag soon">Coming soon</span>
-        <span class="num">03</span><h3>Hybrid</h3>
+        <div class="dephd"><h3>Hybrid</h3><span class="tag soon">Coming soon</span></div>
         <p>Incidents managed in InBrief Cloud, operational event history kept where you choose.</p>
       </div>
     </div>
@@ -466,26 +665,26 @@
 </section>
 
 <section id="platform">
-  <div class="wrap">
-    <span class="eyebrow">The platform</span>
+  <div class="wrap reveal">
+    <div class="eyebrow">The platform</div>
     <h2>Everything a status page actually needs</h2>
     <div class="feat">
-      <div><h3>📊 Status pages</h3><p>Your brand, logo, accent and history window. Run more than one page from one account.</p></div>
-      <div><h3>🌐 Custom domains</h3><p>Point a DNS record at InBrief; the certificate is issued and renewed for you.</p></div>
-      <div><h3>📡 Monitoring</h3><p>Website, port, DNS and cron-job checks, grouped into the services customers recognise.</p></div>
-      <div><h3>🗄 Database health</h3><p>Private connection and pool diagnostics — visible to you, never on the public page.</p></div>
-      <div><h3>🚨 Incidents</h3><p>Publish, update, resolve. Schedule maintenance ahead of time; write the postmortem after.</p></div>
-      <div><h3>📬 Subscribers</h3><p>Email, Discord, Microsoft Teams, Telegram and browser push — one update reaches all of them.</p></div>
-      <div><h3>💬 Team alerts</h3><p>Monitor and certificate alerts into the Slack channel your responders actually watch.</p></div>
-      <div><h3>📈 Analytics</h3><p>Page loads, visitor-days and subscription conversion, for each public page.</p></div>
-      <div><h3>👥 Roles &amp; audit</h3><p>Owner, admin, member and viewer permissions, with an exportable log of who changed what.</p></div>
+      <div><h3><svg class="ic"><use href="#i-page"/></svg> Status pages</h3><p>Your brand, logo, accent and history window. Run more than one page from one account.</p></div>
+      <div><h3><svg class="ic"><use href="#i-domain"/></svg> Custom domains</h3><p>Point a DNS record at InBrief; the certificate is issued and renewed for you.</p></div>
+      <div><h3><svg class="ic"><use href="#i-radar"/></svg> Monitoring</h3><p>Website, port, DNS and cron-job checks, grouped into the services customers recognise.</p></div>
+      <div><h3><svg class="ic"><use href="#i-db"/></svg> Database health</h3><p>Private connection and pool diagnostics — visible to you, never on the public page.</p></div>
+      <div><h3><svg class="ic"><use href="#i-alert"/></svg> Incidents</h3><p>Publish, update, resolve. Schedule maintenance ahead of time; write the postmortem after.</p></div>
+      <div><h3><svg class="ic"><use href="#i-bell"/></svg> Subscribers</h3><p>Email, Discord, Microsoft Teams, Telegram and browser push — one update reaches all of them.</p></div>
+      <div><h3><svg class="ic"><use href="#i-chat"/></svg> Team alerts</h3><p>Monitor and certificate alerts into the Slack channel your responders actually watch.</p></div>
+      <div><h3><svg class="ic"><use href="#i-chart"/></svg> Analytics</h3><p>Page loads, visitor-days and subscription conversion, for each public status page.</p></div>
+      <div><h3><svg class="ic"><use href="#i-users"/></svg> Roles &amp; audit</h3><p>Owner, admin, member and viewer permissions, with an exportable log of who changed what.</p></div>
     </div>
   </div>
 </section>
 
 <section id="developers">
-  <div class="wrap">
-    <span class="eyebrow">Developers</span>
+  <div class="wrap reveal">
+    <div class="eyebrow">Developers</div>
     <h2>Built to be driven by code</h2>
     <div class="api">
       <a class="row" href="https://inbrief.sh/docs/developers/public-status-api"><b>Public Status API</b><span>Current service health and the incident ledger as cached JSON</span></a>
@@ -496,91 +695,188 @@
       <a class="row" href="https://inbrief.sh/docs/developers/badges-and-feeds"><b>Badges &amp; feeds</b><span>SVG badges, JSON status, RSS and Atom — public, no key required</span></a>
       <a class="row" href="https://inbrief.sh/docs/developers/mcp"><b>MCP</b><span>Model Context Protocol connection, in preview</span></a>
     </div>
-<div class="snip"><button class="copy" type="button">Copy</button><pre><span class="tok">curl</span> -X POST https://api.inbrief.sh/v1/incidents \
+    <div class="snip">
+      <button class="copy" type="button">Copy</button>
+<pre><span class="tok">curl</span> -X POST https://api.inbrief.sh/v1/incidents \
   -H <span class="tok">"Authorization: Bearer $INBRIEF_KEY"</span> \
-  -d <span class="tok">'{"title":"Checkout unavailable","impact":"high","services":["checkout"]}'</span></pre></div>
-    <p style="margin-top:18px;font-size:15px">The full REST contract is published as
-      <a href="https://inbrief.sh/docs/developers/openapi.json" style="color:var(--green)">OpenAPI</a>,
-      and the site ships an
-      <a href="https://inbrief.sh/llms.txt" style="color:var(--green)">llms.txt</a>
+  -d '{"title":"Checkout unavailable","impact":"high","services":["checkout"]}'</pre>
+    </div>
+    <p style="margin-top:18px;font-size:15.5px">The full REST contract is published as
+      <a href="https://inbrief.sh/docs/developers/openapi.json" style="color:#7ee2b4">OpenAPI</a>,
+      and the site ships an <a href="https://inbrief.sh/llms.txt" style="color:#7ee2b4">llms.txt</a>
       so coding agents can read it directly.
-      <a href="https://inbrief.sh/docs/developers/quickstart" style="color:var(--green)">Start here →</a></p>
+      <a href="https://inbrief.sh/docs/developers/quickstart" style="color:#7ee2b4">Start here →</a></p>
   </div>
 </section>
 
 <section id="badges">
-  <div class="wrap">
-    <span class="eyebrow">Badges, widgets &amp; feeds</span>
+  <div class="wrap reveal">
+    <div class="eyebrow">Badges, widgets &amp; feeds</div>
     <h2>Public embeds that never break</h2>
-    <p class="lede">Unauthenticated, cached for five minutes, and a badge URL never 404s —
-      an unknown slug or host renders the grey <code>unknown</code> badge, because a broken
-      image in somebody else's README reads as <em>your</em> service being broken.</p>
-
+    <p class="lede">Unauthenticated, cached for five minutes, and a badge URL never 404s — an unknown
+      slug or host renders the grey <code>unknown</code> badge, because a broken image in somebody
+      else's README reads as <em>your</em> service being broken.</p>
     <div class="badges">
-      <div><img src="https://demo.inbrief.sh/badge.svg" alt="Whole-page status badge"></div>
+      <div><img src="https://demo.inbrief.sh/badge.svg" alt="status: degraded"></div>
       <div><code>/badge.svg</code><em>the whole page</em></div>
-      <div><img src="https://demo.inbrief.sh/badge/api.svg" alt="Per-service status badge"></div>
+      <div><img src="https://demo.inbrief.sh/badge/api.svg" alt="Platform API: operational"></div>
       <div><code>/badge/{service}.svg</code><em>one monitor, by name</em></div>
-      <div><img src="https://demo.inbrief.sh/badge/legacy-import.svg" alt="Badge for a service that is down"></div>
+      <div><img src="https://demo.inbrief.sh/badge/legacy-import.svg" alt="Legacy import API: down"></div>
       <div><code>/badge/legacy-import.svg</code><em>the service in the incident</em></div>
-      <div><img src="https://demo.inbrief.sh/badge.svg?style=uptime" alt="Uptime style badge"></div>
+      <div><img src="https://demo.inbrief.sh/badge.svg?style=uptime" alt="uptime badge"></div>
       <div><code>?style=uptime</code><em>thirty-day uptime</em></div>
-      <div><img src="https://demo.inbrief.sh/badge/no-such-service.svg" alt="Unknown service badge"></div>
+      <div><img src="https://demo.inbrief.sh/badge/no-such-service.svg" alt="status: unknown"></div>
       <div><code>any unrecognised slug</code><em>never a broken image</em></div>
     </div>
-
-    <p style="margin-top:30px;font-size:15.5px"><strong style="color:var(--ink)">Renders inside shields.io too.</strong>
-      <code>/badge.json</code> returns the shields endpoint schema, so shields draws your live
-      status in any of its own styles:</p>
+    <p style="margin-top:26px;font-size:15.5px"><strong style="color:var(--ink)">Renders inside
+      shields.io too.</strong> <code>/badge.json</code> returns the shields endpoint schema, so
+      shields draws your live status in any of its own styles:</p>
     <div class="shields">
       <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fdemo.inbrief.sh%2Fbadge.json&style=flat-square" alt="">
       <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fdemo.inbrief.sh%2Fbadge.json&style=for-the-badge" alt="">
       <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fdemo.inbrief.sh%2Fbadge.json&style=plastic" alt="">
     </div>
-
-    <div class="grid g2" style="margin-top:36px">
+    <div class="g2">
       <div class="card">
         <h3>Feeds and calendars</h3>
         <p><code>/feed.xml</code> is the incident ledger as RSS 2.0, filterable by service and
           language — <code>?service=api&amp;lang=ar</code> — alongside Atom and a maintenance
-          calendar, all generated with copy buttons in <strong style="color:var(--ink)">Branding → Embed</strong>.</p>
+          calendar, all generated with copy buttons in
+          <strong style="color:var(--ink)">Branding → Embed</strong>.</p>
       </div>
       <div class="card">
-        <h3>In-page widgets <span class="tag soon" style="position:static;margin-left:6px">In development</span></h3>
-        <p>A live status widget that drops into your own site, styled from the console, with no
-          code changes at the embedding end. Built and being finished — not yet released for
-          general Cloud use.</p>
+        <div class="dephd"><h3>In-page widgets</h3><span class="tag soon">In development</span></div>
+        <p>A live status widget that drops into your own site, styled from the console, with no code
+          changes at the embedding end. Built and being finished — not yet released for general
+          Cloud use.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section id="pricing">
-  <div class="wrap">
-    <span class="eyebrow">Pricing</span>
-    <h2>No tiers. Named plans are just a shortcut.</h2>
-    <p class="lede">Every plan below is a preselected set of the same individually priced
-      capabilities, at a discount. Picking one is a shortcut, never a different product.</p>
-    <div class="price">
-      <div class="card"><span class="nm">Free</span><div class="amt">$0</div><p>A public status page to start from.</p></div>
-      <div class="card hl"><span class="nm">Start</span><div class="amt">$10<small>/mo</small></div><p>The everyday set for a small team.</p></div>
-      <div class="card"><span class="nm">Pro</span><div class="amt">$20<small>/mo</small></div><p>The fuller set, still assembled from the same units.</p></div>
+  <div class="wrap reveal">
+    <div class="mid">
+      <div class="eyebrow">Pricing</div>
+      <h2>No tiers. Named plans are just a shortcut.</h2>
+      <p class="lede">Every plan below is a preselected set of the same individually priced
+        capabilities, at a discount. Picking one is a shortcut, never a different product.</p>
     </div>
-    <div class="cta" style="justify-content:center">
-      <a class="btn btn-p" href="https://inbrief.sh/build">Assemble your own plan →</a>
+    <div class="price">
+      <div class="card">
+        <div class="nm">Free</div>
+        <span class="amt">$0</span>
+        <p class="sub">A public status page to start from.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg> A public status page</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Incidents and maintenance</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Public badges and feeds</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> No card to begin</li>
+        </ul>
+        <a class="btn btn-s" href="https://inbrief.sh/build">Start free</a>
+      </div>
+      <div class="card hl">
+        <span class="best">Most picked</span>
+        <div class="nm">Start</div>
+        <span class="amt">$10<small>/mo</small></span>
+        <p class="sub">The everyday set for a small team.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg> Everything in Free</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Monitoring that notices first</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Subscriber notifications</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Your own domain</li>
+        </ul>
+        <a class="btn btn-p" href="https://inbrief.sh/build">Choose Start</a>
+      </div>
+      <div class="card">
+        <div class="nm">Pro</div>
+        <span class="amt">$20<small>/mo</small></span>
+        <p class="sub">The fuller set, still assembled from the same units.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg> Everything in Start</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> More published languages</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Analytics and audit log</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> More of the catalog, discounted</li>
+        </ul>
+        <a class="btn btn-s" href="https://inbrief.sh/build">Choose Pro</a>
+      </div>
+    </div>
+    <p class="pnote">None of these fit? <a href="https://inbrief.sh/build" style="color:#7ee2b4">Assemble
+      your own plan →</a> Add the capabilities you want; the running total is what checkout charges.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap reveal">
+    <div class="mid">
+      <div class="eyebrow">Before you ask</div>
+      <h2>The questions everyone sends first</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Do I need a card to start? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">No. Free is $0 and gives you a public status page with incidents,
+          maintenance and the public badges and feeds. You add paid capabilities when you want them,
+          and the builder shows the total before you commit to anything.</div>
+      </details>
+      <details>
+        <summary>Can I put it on my own domain? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">Yes. Point a DNS record at InBrief and the certificate is issued and
+          renewed for you. The domain stays registered to you — it is a capability you switch on,
+          not a reason to move up a plan.</div>
+      </details>
+      <details>
+        <summary>Which languages can the page publish in? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">English, Arabic, French and Spanish. You write an incident once in the
+          language your team works in and it publishes in every language you have switched on, after
+          you review the prepared translation. Arabic renders right-to-left with Arabic-Indic
+          digits.</div>
+      </details>
+      <details>
+        <summary>What happens if my whole platform is down? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">That is what outage continuity is for. The customer-facing page is hosted
+          away from the infrastructure it reports on, so when your own systems cannot answer,
+          visitors still get a page carrying your message rather than a connection error.</div>
+      </details>
+      <details>
+        <summary>Can I drive it from my own systems? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">Everything the dashboard does, REST does. Open, update and resolve
+          incidents, report events and database health, and verify signed webhooks. The contract is
+          published as OpenAPI, the ledger is readable as JSON, RSS and Atom without a key, and an
+          MCP connection is in preview. Start at the
+          <a href="https://inbrief.sh/docs/developers/quickstart">developer quickstart</a>.</div>
+      </details>
+      <details>
+        <summary>How do customers hear about an incident? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">Email, Discord, Microsoft Teams, Telegram and browser push — one update
+          reaches all of them. Your own responders can take monitor and certificate alerts in the
+          Slack channel they already watch.</div>
+      </details>
+      <details>
+        <summary>Can I run it inside my own perimeter? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">Cloud is available today. On-premises and hybrid are published as
+          deployment options and open when their support boundaries are ready — hybrid keeps
+          incidents in InBrief Cloud while operational event history stays where you choose.</div>
+      </details>
+      <details>
+        <summary>What if I want to leave? <svg class="ic"><use href="#i-plus"/></svg></summary>
+        <div class="ans">The account, the domain and the history stay yours. The incident ledger is
+          public JSON, RSS and Atom, so you can read your own history out at any time without asking
+          anyone, and the audit log is exportable.</div>
+      </details>
     </div>
   </div>
 </section>
 
 <div class="close">
-  <div class="wrap">
-    <span class="eyebrow">Get started</span>
+  <div class="wrap reveal">
+    <div class="eyebrow">Get started</div>
     <h2>Your next incident is going to happen anyway.</h2>
-    <p>Put up the page before it does. Free to start, no card, and the account, the domain
-      and the history stay yours.</p>
-    <div class="cta" style="justify-content:center;margin-top:30px">
-      <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
-      <a class="btn btn-s" href="https://inbrief.sh/docs">Read the docs</a>
+    <p>Put the page up before it does. Free to start, no card, and the account, the domain and the
+      history stay yours.</p>
+    <div class="cta">
+      <a class="btn btn-p btn-lg" href="https://inbrief.sh/build">Build your plan</a>
+      <a class="btn btn-s btn-lg" href="https://inbrief.sh/docs">Read the docs</a>
     </div>
   </div>
 </div>
@@ -589,14 +885,15 @@
   <div class="wrap">
     <div class="fgrid">
       <div class="fbrand">
-        <a class="brand" href="https://inbrief.sh"><img src="assets/logo.png" alt="">InBrief</a>
-        <p>Hosted status pages that keep your customers informed — while you keep the
-           account, the domain and the history.</p>
-        <a class="btn btn-p" href="https://inbrief.sh/build" style="margin-top:20px">Build your plan</a>
+        <a class="brand" href="https://inbrief.sh"><img src="assets/logo.png" alt=""> InBrief</a>
+        <p>Hosted status pages that keep your customers informed — while you keep the account, the
+          domain and the history.</p>
+        <a class="btn btn-p" href="https://inbrief.sh/build">Build your plan</a>
       </div>
       <div class="fcol">
         <h4>Product</h4>
         <a href="#why">Why InBrief</a>
+        <a href="#compare">Compare</a>
         <a href="#platform">Platform</a>
         <a href="#deployment">Deployment</a>
         <a href="#pricing">Pricing</a>
@@ -630,33 +927,22 @@
   </div>
 </footer>
 
-
 <a class="top" href="#" aria-label="Back to top">↑</a>
+
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* staggered scroll reveal */
-  var targets = document.querySelectorAll(
-    'section .eyebrow, section h2, section .lede, .card, .shot, .cap, .api, .badges, .shields, .feat > div, .snip, .split > div, .close .eyebrow, .close h2, .close p, .close .cta, .fgrid > div'
-  );
-  targets.forEach(function(el){ el.classList.add('reveal'); });
-  if (reduce || !('IntersectionObserver' in window)) {
-    targets.forEach(function(el){ el.classList.add('in'); });
+  /* staggered reveal */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e, i){
-        if (!e.isIntersecting) return;
-        var sibs = Array.prototype.slice.call(e.target.parentNode.children).indexOf(e.target);
-        e.target.style.transitionDelay = Math.min(Math.max(sibs,0), 5) * 70 + 'ms';
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    targets.forEach(function(el){ io.observe(el); });
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }
 
-  /* sticky header state + back to top */
   var head = document.querySelector('header'), top = document.querySelector('.top');
   addEventListener('scroll', function(){
     head.classList.toggle('stuck', scrollY > 12);
@@ -694,7 +980,7 @@
     shot.addEventListener('pointermove', function(e){
       var r = shot.getBoundingClientRect();
       var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      shot.style.transform = 'perspective(1200px) rotateX(' + (-y*2.4) + 'deg) rotateY(' + (x*2.4) + 'deg) translateY(-3px)';
+      shot.style.transform = 'perspective(1400px) rotateX(' + (-y*1.8) + 'deg) rotateY(' + (x*1.8) + 'deg) translateY(-3px)';
     });
     shot.addEventListener('pointerleave', function(){ shot.style.transform = ''; });
   }
@@ -739,8 +1025,8 @@
   document.querySelectorAll('.btn').forEach(function(b){
     b.addEventListener('pointermove', function(e){
       var r = b.getBoundingClientRect();
-      b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*0.22) + 'px,' +
-                                        ((e.clientY-r.top-r.height/2)*0.32) + 'px)';
+      b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*0.18) + 'px,' +
+                                        ((e.clientY-r.top-r.height/2)*0.26) + 'px)';
     });
     b.addEventListener('pointerleave', function(){ b.style.transform = ''; });
   });
@@ -759,7 +1045,7 @@
   if (shot) addEventListener('scroll', function(){
     if (ticking) return; ticking = true;
     requestAnimationFrame(function(){
-      shot.style.translate = '0 ' + (Math.min(scrollY, 700) * -0.035) + 'px';
+      shot.style.translate = '0 ' + (Math.min(scrollY, 700) * -0.03) + 'px';
       ticking = false;
     });
   }, { passive:true });
