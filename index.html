@@ -12,26 +12,33 @@
 <meta property="og:image" content="https://inbrief-inc.github.io/assets/banner.png">
 <meta property="og:url" content="https://inbrief.sh/">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif:ital,wght@0,500;0,600;0,700&display=swap">
 <style>
   :root{
     --bg:#06111c; --panel:#0c1a27; --panel2:#0a1622; --line:rgba(255,255,255,.10);
     --ink:#f2f7fb; --mut:rgba(242,247,251,.66); --dim:rgba(242,247,251,.44);
     --blue:#1b87c5; --green:#22b573; --deep:#1b7a4f; --amber:#e0a458; --red:#e06a63;
     --r:16px; --max:1120px;
+    --sans:"Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --serif:"Noto Serif",ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
     background:var(--bg); color:var(--ink);
-    font:400 17px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font:400 16.5px/1.62 var(--sans);
     -webkit-font-smoothing:antialiased; overflow-x:hidden;
   }
   a{color:inherit}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
   .eyebrow{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--green)}
-  h2{font-size:clamp(28px,4vw,41px);line-height:1.13;letter-spacing:-1.3px;font-weight:700;margin:10px 0 14px}
-  h3{font-size:19px;letter-spacing:-.3px;font-weight:650;margin-bottom:7px}
+  h2{font-family:var(--serif);font-size:clamp(28px,3.8vw,42px);line-height:1.04;
+    letter-spacing:-.028em;font-weight:600;margin:10px 0 14px}
+  h3{font-family:var(--serif);font-size:19px;letter-spacing:-.022em;font-weight:600;
+    line-height:1.18;margin-bottom:7px}
   p{color:var(--mut)}
   section{padding:92px 0;border-top:1px solid var(--line)}
   .lede{font-size:19px;max-width:62ch}
@@ -47,7 +54,8 @@
   header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
     background:rgba(6,17,28,.82);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;gap:28px;height:68px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:19px;letter-spacing:-.5px;text-decoration:none}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;
+    font-size:19px;letter-spacing:-.015em;text-decoration:none}
   .brand img{width:30px;height:30px}
   .nav nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
   .nav nav a{color:var(--mut);text-decoration:none}
@@ -68,8 +76,8 @@
       radial-gradient(40% 48% at 82% 16%, rgba(34,181,115,.20), transparent 70%);
     filter:blur(14px)}
   .hero .wrap{position:relative;z-index:1}
-  h1{font-size:clamp(38px,6.2vw,66px);line-height:1.04;letter-spacing:-2.5px;font-weight:760;
-    margin:16px auto 20px;max-width:17ch}
+  h1{font-family:var(--serif);font-size:clamp(33px,5.3vw,64px);line-height:1;
+    letter-spacing:-.032em;font-weight:600;margin:16px auto 20px;max-width:17ch}
   .hero .lede{font-size:20px;max-width:60ch;margin:0 auto}
   .cta{display:flex;gap:13px;margin-top:32px;flex-wrap:wrap;justify-content:center}
   .trust{display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;margin-top:30px;
@@ -187,7 +195,8 @@
   @media(max-width:880px){.price{grid-template-columns:1fr;margin-top:44px}}
   .price .card{padding:30px 26px;display:flex;flex-direction:column}
   .price .nm{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dim)}
-  .price .amt{font-size:48px;font-weight:760;letter-spacing:-2.5px;margin:10px 0 4px;display:block;line-height:1}
+  .price .amt{font-family:var(--serif);font-size:46px;font-weight:600;letter-spacing:-.03em;
+    margin:10px 0 4px;display:block;line-height:1}
   .price .amt small{font-size:15px;font-weight:500;color:var(--dim);letter-spacing:0}
   .price .sub{font-size:15px}
   .price ul{list-style:none;margin:20px 0 24px;border-top:1px solid var(--line);padding-top:18px;flex:1}
@@ -350,6 +359,50 @@
 
   .price .card:hover .amt{transform:scale(1.03)}
   .price .amt{transition:transform .3s cubic-bezier(.22,.7,.26,1)}
+
+  /* ---------- phones ---------- */
+  @media(max-width:640px){
+    .wrap{padding:0 18px}
+    section{padding:58px 0}
+    h2{margin-bottom:12px}
+    .lede{font-size:16.5px}
+    .hero{padding:46px 0 54px}
+    .hero .lede{font-size:17px}
+    .cta{flex-direction:column;align-items:stretch;gap:10px;margin-top:26px}
+    .cta .btn{width:100%}
+    .btn-lg{padding:13px 22px}
+    .trust{flex-direction:column;align-items:center;gap:9px;margin-top:22px;font-size:14px}
+    .shot{margin-top:32px}
+    .cap{font-size:13px}
+    .band{padding:15px 0}
+    .chip{font-size:13.5px;padding:8px 14px}
+    .card{padding:21px}
+    .g2,.g3,.prob,.dep,.price{gap:14px;margin-top:28px}
+    .steps{gap:26px;margin-top:32px}
+    .cmp{margin-top:28px}
+    .cmp .row > *{padding:13px 16px;font-size:14.5px}
+    .split{margin-top:28px}
+    .feat{margin-top:28px}
+    .feat > div{padding:19px}
+    .api{margin-top:26px}
+    .api a.row{padding:15px 18px;gap:4px}
+    .api b{min-width:0;flex-basis:100%}
+    .api a.row:hover{padding-left:18px}
+    pre{font-size:12px;padding:15px 16px}
+    .badges{margin-top:26px}
+    .badges > div{padding:13px 18px}
+    .faq{margin-top:28px}
+    .faq summary{padding:17px 18px;font-size:15.5px;gap:10px}
+    .faq .ans{padding:0 18px 18px;font-size:15px}
+    .price{margin-top:38px}
+    .price .card{padding:26px 22px}
+    .close{padding:64px 0}
+    .close p{font-size:16.5px}
+    footer{padding:46px 0 30px}
+    .fgrid{gap:30px}
+    .fbase{margin-top:34px}
+    .top{right:14px;bottom:14px}
+  }
 
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
