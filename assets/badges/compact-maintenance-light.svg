@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="274" height="40" viewBox="0 0 274 40" role="img" aria-label="Scheduled maintenance in progress" direction="ltr" font-family="Noto Sans,Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" data-state="maintenance" data-variant="compact" data-theme="dark" data-palette="inbrief" data-pulse="on">
+<svg xmlns="http://www.w3.org/2000/svg" width="274" height="40" viewBox="0 0 274 40" role="img" aria-label="Scheduled maintenance in progress" direction="ltr" font-family="Noto Sans,Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" data-state="maintenance" data-variant="compact" data-theme="light" data-palette="inbrief" data-pulse="on">
 <title>Scheduled maintenance in progress</title>
 <style>
-.ib-surface{fill:#1B2421}
-.ib-foreground{fill:#F0F7F4}
-.ib-muted{fill:#9EAAA6}
-.ib-muted-stroke{stroke:#31403B}
-.ib-accent{fill:#86bce8}
-.ib-accent-stroke{stroke:#86bce8}
-.ib-outline{stroke:#86bce8;stroke-opacity:.62}
+.ib-surface{fill:#FFFFFF}
+.ib-foreground{fill:#18221F}
+.ib-muted{fill:#65716D}
+.ib-muted-stroke{stroke:#DBE4E0}
+.ib-accent{fill:#2a5f8f}
+.ib-accent-stroke{stroke:#2a5f8f}
+.ib-outline{stroke:#2a5f8f;stroke-opacity:.62}
 .ib-pulse-ring{animation:ib-pulse 2.4s ease-out infinite;transform-box:fill-box;transform-origin:center}
 @keyframes ib-pulse{0%{opacity:.32;transform:scale(.72)}70%,100%{opacity:0;transform:scale(1.28)}}
 @media (prefers-reduced-motion: reduce){.ib-pulse-ring{animation:none;opacity:.16;transform:none}}

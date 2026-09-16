@@ -273,11 +273,13 @@
 
   /* phones: the curl snippet scrolls inside its box instead of widening the page */
   .dev>*,.snip{min-width:0}
+  @media(max-width:660px){.copy{position:static;display:block;width:max-content;margin:0 0 10px auto}}
   /* ------------------------------------------------------------ embeds */
   .tile.w3{grid-column:span 3}
   @media(max-width:1024px){.tile.w3{grid-column:span 2}}
   @media(max-width:660px){.tile.w3{grid-column:auto}}
-  .bset{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:auto}
+  /* badges sit at their natural size: two columns only when both fit unscaled */
+  .bset{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:16px;margin-top:auto}
   @media(max-width:660px){.bset{grid-template-columns:1fr}}
   .bcol{display:flex;flex-direction:column;gap:14px;align-items:flex-start;padding:18px;border-radius:18px;border:1px solid var(--line);background:rgba(0,0,0,.28)}
   .bcol.light{background:#fff;border-color:#e3e8e6}
@@ -479,8 +481,10 @@
       <span><svg class="ic"><use href="#i-check"/></svg> Your domain, your history</span>
     </div>
     <div class="shot up" style="animation-delay:.45s">
-      <a href="https://demo.inbrief.sh"><img src="assets/status-page.png" width="2880" height="1636" fetchpriority="high"
-        alt="An InBrief status page during an incident, showing the incident update above fourteen days of service health."></a>
+      <a href="https://demo.inbrief.sh"><picture>
+        <source media="(max-width:660px)" srcset="assets/status-page-phone.png" width="1000" height="1400">
+        <img src="assets/status-page.png" width="2880" height="1636" fetchpriority="high"
+        alt="An InBrief status page during an incident, showing the incident update above fourteen days of service health."></picture></a>
     </div>
     <p class="cap">Our demonstration page, held in an incident on purpose so you can see how one reads.</p>
   </div>
@@ -715,8 +719,11 @@
         <p>Arabic is not a translation target bolted on. The page renders <strong>right-to-left, with Arabic-Indic digits</strong>, because a right-to-left page laid out left-to-right reads as broken to the people it is for.</p>
         <div class="langs"><span>English</span><span lang="ar">العربية · RTL</span><span>Français</span><span>Español</span></div>
       </div>
-      <img src="assets/status-page-arabic.png" width="2880" height="1724" loading="lazy" decoding="async"
+      <picture>
+        <source media="(max-width:660px)" srcset="assets/status-page-arabic-phone.png" width="1000" height="1400">
+        <img src="assets/status-page-arabic.png" width="2880" height="1724" loading="lazy" decoding="async"
         alt="The same status page rendered in Arabic, right-to-left, with Arabic-Indic digits.">
+      </picture>
     </div>
   </div>
 </section>
@@ -805,7 +812,7 @@
           <img src="assets/badges/compact-operational-dark.svg" width="191" height="40" alt="Everything is working" loading="lazy">
           <img src="assets/badges/compact-degraded-dark.svg" width="260" height="40" alt="Some services are running slowly" loading="lazy">
           <img src="assets/badges/compact-outage-dark.svg" width="242" height="40" alt="Some services are unavailable" loading="lazy">
-          <img src="assets/badges/compact-maintenance-dark.svg" width="269" height="40" alt="Scheduled maintenance in progress" loading="lazy">
+          <img src="assets/badges/compact-maintenance-dark.svg" width="274" height="40" alt="Scheduled maintenance in progress" loading="lazy">
           <img src="assets/badges/signal-operational-ar-dark.svg" width="413" height="72" alt="The signal badge in Arabic, right-to-left" loading="lazy">
         </div>
       </div>

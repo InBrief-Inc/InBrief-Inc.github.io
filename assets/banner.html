@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>InBrief banner source</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@600&family=Noto+Sans+Arabic:wght@500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0}
+body{width:1200px;height:300px;overflow:hidden;background:#050e18;font-family:'Noto Sans',sans-serif;color:#edf2ef;position:relative}
+.bg{position:absolute;inset:0;background:radial-gradient(900px 520px at 88% 18%,rgba(34,181,115,.30),transparent 62%),radial-gradient(760px 420px at 8% 95%,rgba(27,135,197,.26),transparent 62%),linear-gradient(120deg,#07131f,#050e18 60%,#061a1a)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:40px 40px;-webkit-mask-image:radial-gradient(700px 320px at 50% 50%,#000 30%,transparent 100%)}
+.left{position:absolute;left:64px;top:56px}
+.brand{display:flex;align-items:center;gap:18px}
+.brand img{width:64px;height:64px}
+.brand b{font:600 58px/1 'Noto Serif',serif;letter-spacing:-.01em}
+.tag{margin-top:24px;font:500 30px/1.2 'Noto Sans',sans-serif;color:#dfe8e3}
+.chips{display:flex;gap:10px;margin-top:26px}
+.chips span{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 16px;font:600 13px 'Noto Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#cfe6f5;background:rgba(255,255,255,.04)}
+.right{position:absolute;right:64px;top:58px;width:420px}
+.right img{display:block;margin:0 auto}
+.hist{display:grid;grid-template-columns:repeat(30,1fr);gap:3px;height:34px;margin:30px 6px 0}
+.hist i{display:flex;flex-direction:column-reverse;border-radius:3px;overflow:hidden;background:rgba(103,202,152,.72)}
+.hist i::before{content:"";display:block;height:0}
+.hist i.d::before{height:18%;background:repeating-linear-gradient(135deg,#e4ad65 0 3px,#2d2518 3px 5px)}
+.hist i.o::before{height:24%;background:#ef8379}
+.hist i.n{background:repeating-linear-gradient(135deg,rgba(169,181,175,.48) 0 2px,transparent 2px 4px)}
+.hist i.t{outline:2px solid #edf2ef;outline-offset:2px}
+.cap{display:flex;justify-content:space-between;margin:12px 6px 0;font-size:13px;color:#a9b5af}
+.langs{margin-top:22px;text-align:center;font:600 15px 'Noto Sans','Noto Sans Arabic',sans-serif;letter-spacing:.14em;color:#8fb3a6}
+</style></head><body><div class="bg"></div><div class="grid"></div>
+<div class="left"><div class="brand"><img src="logo.png" alt=""><b>InBrief</b></div>
+<div class="tag">Incident communication, without lock-in.</div>
+<div class="chips"><span>Status pages</span><span>Monitoring</span><span>Incidents</span><span>Subscribers</span><span>API</span></div></div>
+<div class="right"><img src="badges/signal-operational-dark.svg" width="361" height="86" alt="">
+<div class="hist"><i class="n"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="d"></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="d"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="t"></i></div>
+<div class="cap"><span>30 days ago</span><span>Showing 30 days</span><span>Today</span></div>
+<div class="langs">EN &middot; العربية &middot; FR &middot; ES</div></div></body></html>
