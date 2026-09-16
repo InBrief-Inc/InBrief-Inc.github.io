@@ -172,13 +172,26 @@
   .arms span{border:1px solid var(--line2);border-radius:999px;padding:7px 13px 7px 27px;font-size:13.5px;color:var(--ink2);position:relative;background:rgba(255,255,255,.02)}
   .arms span::before{content:"";position:absolute;left:11px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--green)}
 
-  /* uptime */
-  .bars{height:46px;border-radius:8px;position:relative;overflow:hidden;
-    background:repeating-linear-gradient(90deg,var(--green) 0 5px,transparent 5px 8px);opacity:.92}
-  .bars i{position:absolute;top:0;bottom:0;width:5px;background:var(--amber)}
-  .bars i.r{background:var(--red)}
-  .stat{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:var(--ink3)}
-  .stat b{color:var(--ink);font-weight:600}
+  /* uptime: a service card as the status page draws it (day cells, bands, today outlined) */
+  .mock.svc{overflow:visible;padding:14px 14px 12px}
+  .shead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 12px;align-items:flex-start;margin-bottom:12px}
+  .shead>div>b{display:block;font-size:14px;color:var(--ink);font-weight:600}
+  .sok{display:inline-flex;align-items:center;gap:5px;margin-top:4px;font-size:12px;color:#67ca98}
+  .sok .ic{width:14px;height:14px;border:1.5px solid currentColor;border-radius:50%;padding:2.5px;color:#67ca98}
+  .smet{display:flex;gap:14px;text-align:right;flex-shrink:0;margin-left:auto}
+  .smet span{display:flex;flex-direction:column}
+  .smet b{font-size:12px;color:var(--ink);font-weight:600}
+  .smet small{font-size:9.5px;color:var(--ink3);white-space:nowrap}
+  .hist{display:grid;grid-template-columns:repeat(30,1fr);gap:2px;height:28px;margin:4px 3px}
+  .hist i{display:flex;flex-direction:column-reverse;border-radius:2px;overflow:hidden;background:rgba(103,202,152,.72)}
+  .hist i::before{content:"";display:block;height:0}
+  .hist i.d::before{height:18%;background:repeating-linear-gradient(135deg,#e4ad65 0 3px,#2d2518 3px 5px)}
+  .hist i.o::before{height:24%;background:#ef8379}
+  .hist i.n{background:repeating-linear-gradient(135deg,rgba(169,181,175,.48) 0 2px,transparent 2px 4px)}
+  .hist i.t{outline:2px solid #edf2ef;outline-offset:2px}
+  .hcap{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--ink3)}
+  .hsel{margin:9px 0 0;font-size:11px;color:var(--ink3)}
+  .hsel b{color:var(--ink);font-weight:600}
 
   /* domain */
   .url{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:14px;color:var(--ink)}
@@ -258,6 +271,8 @@
   .copy.done{color:var(--mint);border-color:rgba(34,181,115,.5)}
   .dev .more{margin-top:20px;font-size:16px}
 
+  /* phones: the curl snippet scrolls inside its box instead of widening the page */
+  .dev>*,.snip{min-width:0}
   /* ------------------------------------------------------------ embeds */
   .tile.w3{grid-column:span 3}
   @media(max-width:1024px){.tile.w3{grid-column:span 2}}
@@ -578,9 +593,14 @@
       <div class="tile">
         <h3>Monitors that notice first.</h3>
         <p>HTTP, TCP, DNS and ping checks, plus heartbeats for cron jobs and pipelines, grouped into the services your customers recognise.</p>
-        <div class="mock">
-          <div class="bars" aria-hidden="true"><i style="left:96px"></i><i class="r" style="left:216px"></i><i style="left:224px"></i></div>
-          <div class="stat"><span><b>Checkout</b> · 90 days</span><span>Checked every minute</span></div>
+        <div class="mock svc" aria-hidden="true">
+          <div class="shead">
+            <div><b>Checkout</b><span class="sok"><svg class="ic"><use href="#i-check"/></svg>Working normally</span></div>
+            <div class="smet"><span><b>99.98%</b><small>30 days estimated uptime</small></span><span><b>48 ms</b><small>Average over 30 days</small></span></div>
+          </div>
+          <div class="hist"><i class="n"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="d"></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="d"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="t"></i></div>
+          <div class="hcap"><span>30 days ago</span><span>Showing 30 days</span><span>Today</span></div>
+          <p class="hsel"><b>Today</b> · Working normally · 100% uptime · 48 ms avg</p>
         </div>
       </div>
 
@@ -768,12 +788,12 @@
           <div class="bcol"><small>Dark</small>
             <img src="assets/badges/signal-operational-dark.svg" width="301" height="72" alt="Signal badge: Northwind, everything is working, 99.98% uptime, live status" loading="lazy">
             <img src="assets/badges/compact-operational-dark.svg" width="191" height="40" alt="Compact badge: everything is working" loading="lazy">
-            <img src="assets/badges/uptime-operational-dark.svg" width="258" height="40" alt="Uptime badge: working normally, 99.98% uptime" loading="lazy">
+            <img src="assets/badges/uptime-operational-dark.svg" width="371" height="40" alt="Uptime badge: everything is working, 99.98% uptime, live status" loading="lazy">
           </div>
           <div class="bcol light"><small>Light</small>
             <img src="assets/badges/signal-operational-light.svg" width="301" height="72" alt="The same signal badge on a light background" loading="lazy">
             <img src="assets/badges/compact-operational-light.svg" width="191" height="40" alt="The same compact badge on a light background" loading="lazy">
-            <img src="assets/badges/uptime-operational-light.svg" width="258" height="40" alt="The same uptime badge on a light background" loading="lazy">
+            <img src="assets/badges/uptime-operational-light.svg" width="371" height="40" alt="The same uptime badge on a light background" loading="lazy">
           </div>
         </div>
       </div>
